@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
-import com.aaa.bbb.ccc.weather.domain.model.Place;
-import com.aaa.bbb.ccc.weather.domain.model.ShortForecast;
+import com.aaa.bbb.ccc.weather.model.ShortForecast;
 import com.aaa.bbb.ccc.weather.presentation.adapter.ShortForecastAdapter;
 import com.aaa.bbb.ccc.weather.presentation.weatherListSceenFragment.presentation.presenter.WeatherListScreenPresenter;
 import com.aaa.bbb.ccc.weather.presentation.weatherListSceenFragment.presentation.view.WeatherListScreenView;
@@ -33,7 +33,7 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
 public class WeatherListScreenFragment extends MvpAppCompatFragment implements WeatherListScreenView {
     public interface OnPlaceLister {
-        void show(Place place);
+        void show(String place);
     }
 
     private OnPlaceLister placeLister;
@@ -51,7 +51,7 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
 
     @ProvidePresenter
     WeatherListScreenPresenter provideWeatherListScreenFragment() {
-        return WeatherApp.getWeatherListFragmentModule().getPresenter();
+        return WeatherApp.getInstance().getWeatherListFragmentModule().getPresenter();
     }
 
     @Override
@@ -62,18 +62,25 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     }
 
     @Override
+    public void showError(String message) {
+        Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WeatherApp.getWeatherListFragmentModule().inject(this);
+        WeatherApp
+                .getInstance()
+                .getWeatherListFragmentModule()
+                .inject(this);
         RecyclerView mList = view.findViewById(R.id.listWeather);
         mList.setLayoutManager(layoutManager);
         adapter.setOnItemClickLister(id -> mWeatherListScreenPresenter.onItemForecastClick(id));
         mList.setAdapter(adapter);
-        navigator = new SupportAppNavigator(getActivity(), -1);
     }
 
     @Override
-    public void showPlace(Place place) {
+    public void showPlace(String place) {
         if (placeLister != null) {
             placeLister.show(place);
         }
@@ -101,6 +108,7 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     @Override
     public void onResume() {
         super.onResume();
+        navigator = new SupportAppNavigator(getActivity(), -1);
         navigatorHolder.setNavigator(navigator);
     }
 }

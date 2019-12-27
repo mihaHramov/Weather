@@ -3,7 +3,7 @@ package com.aaa.bbb.ccc.weather.navigation;
 import android.content.Context;
 import android.content.Intent;
 
-import com.aaa.bbb.ccc.weather.domain.model.SynopticForecast;
+import com.aaa.bbb.ccc.weather.model.SynopticForecast;
 import com.aaa.bbb.ccc.weather.presentation.detailsWeatherForecastActivity.DetailsWeatherForecastActivity;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;

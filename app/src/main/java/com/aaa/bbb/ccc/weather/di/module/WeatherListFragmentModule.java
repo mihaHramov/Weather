@@ -4,11 +4,13 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.aaa.bbb.ccc.weather.data.repository.intrf.ILocationRepository;
-import com.aaa.bbb.ccc.weather.data.repository.intrf.IPermissionsRepository;
-import com.aaa.bbb.ccc.weather.data.repository.intrf.ISettingsRepository;
-import com.aaa.bbb.ccc.weather.data.repository.intrf.IWeatherForecastRepository;
-import com.aaa.bbb.ccc.weather.domain.interactor.CurrentWeatherForecastInteractor;
+import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
+import com.aaa.bbb.ccc.domain.interactor.CurrentWeatherForecastInteractor;
+import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.weather.presentation.adapter.ShortForecastAdapter;
 import com.aaa.bbb.ccc.weather.presentation.weatherListSceenFragment.presentation.presenter.WeatherListScreenPresenter;
 
@@ -24,17 +26,21 @@ public class WeatherListFragmentModule {
     }
 
     @Provides
-    LinearLayoutManager provideLinaer(Context context) {
+    LinearLayoutManager provideLinear(Context context) {
         return new LinearLayoutManager(context);
     }
 
     @Provides
-    public WeatherListScreenPresenter presenter(CurrentWeatherForecastInteractor interactor, Router router) {
-        return new WeatherListScreenPresenter(interactor, router);
+    public WeatherListScreenPresenter presenter(ICurrentWeatherForecastInteractor interactor, Router router,ISchedulerRepository mSchedulerRepository) {
+        return new WeatherListScreenPresenter(mSchedulerRepository, interactor, router);
     }
 
     @Provides
-    CurrentWeatherForecastInteractor provideInteractor(IPermissionsRepository permissionsRepository, IWeatherForecastRepository weatherForecastRepository, ILocationRepository locationRepository, ISettingsRepository settingsRepository) {
-        return new CurrentWeatherForecastInteractor(permissionsRepository, weatherForecastRepository, locationRepository, settingsRepository);
+    ICurrentWeatherForecastInteractor interactor(IPermissionsRepository permissionsRepository,
+                                                                                   IWeatherForecastRepository weatherForecastRepository,
+                                                                                   ILocationRepository locationRepository,
+                                                                                   ISettingsRepository settingsRepository,
+                                                                                   ISchedulerRepository schedulerRepository){
+        return new CurrentWeatherForecastInteractor(permissionsRepository,weatherForecastRepository,locationRepository,settingsRepository,schedulerRepository);
     }
 }

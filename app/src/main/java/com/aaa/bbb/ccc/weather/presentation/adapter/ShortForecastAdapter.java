@@ -10,13 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
-import com.aaa.bbb.ccc.weather.domain.model.ShortForecast;
+import com.aaa.bbb.ccc.weather.model.ShortForecast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdapter.ViewHolder> {
     public interface OnItemClickLister {
@@ -76,12 +74,11 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
         }
 
         void bind(ShortForecast dailyForecast) {
-            Picasso.get().load(dailyForecast.getWeatherType().getIcon()).into(mIcon);
-            mWeatherType.setText(dailyForecast.getWeatherType().getDescription());
-            mMaxTemperature.setText(dailyForecast.getTemperature().getMax().toString());
-            mMinTemperature.setText(dailyForecast.getTemperature().getMin().toString());
-            String date = dailyForecast.getDate().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-            mDate.setText(date);
+            Picasso.get().load(dailyForecast.getIcon()).into(mIcon);
+            mWeatherType.setText(dailyForecast.getDescription());
+            mMaxTemperature.setText(dailyForecast.getTemperature().getMax());
+            mMinTemperature.setText(dailyForecast.getTemperature().getMin());
+            mDate.setText(dailyForecast.getDate());
         }
     }
 }

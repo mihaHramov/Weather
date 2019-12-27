@@ -10,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
-import com.aaa.bbb.ccc.weather.domain.model.ShortForecast;
+import com.aaa.bbb.ccc.weather.model.ShortForecast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAdapter.ViewHolder> {
@@ -53,6 +52,7 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
         private TextView clouds;
         private ImageView icon;
         private TextView weatherType;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.icon);
@@ -67,51 +67,17 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
             weatherType = itemView.findViewById(R.id.weather_type);
         }
 
-        private String fromDoubleToString(Double val){
-            return val.toString();
-        }
         void bind(ShortForecast forecast) {
-            int hour = forecast.getDate().get(Calendar.HOUR);
-            int minute = forecast.getDate().get(Calendar.MINUTE);
-            String date  = hour +":"+ minute;
-            mDate.setText(date);
-            minTemperature.setText(fromDoubleToString(forecast.getTemperature().getMin()));
-            maxTemperature.setText(fromDoubleToString(forecast.getTemperature().getMax()));
-            pressure.setText(forecast.getPressure().toString());
-            humidity.setText(forecast.getHumidity().toString());
-            snow.setText(fromDoubleToString(forecast.getSnow()));
+            mDate.setText(forecast.getDate());
+            minTemperature.setText(forecast.getTemperature().getMax());
+            maxTemperature.setText(forecast.getTemperature().getMax());
+            pressure.setText(forecast.getPressure());
+            humidity.setText(forecast.getHumidity());
+            snow.setText(forecast.getPrecipitation());
             clouds.setText(forecast.getClouds());
-            Picasso.get().load(forecast.getWeatherType().getIcon()).into(icon);
-            weatherType.setText(forecast.getWeatherType().getDescription());
-            String w =  forecast.getWind().getWindSpeed().toString();
-            w= w.concat("(м/c)");
-            switch (forecast.getWind().getWindType()){
-                case E:
-                   w =  w.concat("Восток");
-                    break;
-                case N:
-                    w =  w.concat("Север");
-                    break;
-                case S:
-                    w =  w.concat("Юг");
-                    break;
-                case W:
-                    w =  w.concat("Запад");
-                    break;
-                case NE:
-                    w =  w.concat("Северо-Восток");
-                    break;
-                case NW:
-                    w =  w.concat("Северо-Запад");
-                    break;
-                case SE:
-                    w =  w.concat("Юго-Восток");
-                    break;
-                case SW:
-                    w =  w.concat("Юго-Запад");
-                    break;
-            }
-            wind.setText(w);
+            Picasso.get().load(forecast.getIcon()).into(icon);
+            weatherType.setText(forecast.getDescription());
+            wind.setText(forecast.getDescription());
         }
     }
 }

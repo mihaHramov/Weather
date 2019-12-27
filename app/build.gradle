@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: "org.sonarqube"
 
 android {
     compileSdkVersion 29
@@ -27,6 +27,21 @@ def retrofit = "2.6.3"
 def okhttp = "3.12.1"
 def dagger = "2.16"
 def moxyVersion = "2.0.2"
+
+
+
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "weather"
+        property "sonar.projectKey", "com.aaa.bbb.ccc.weather"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "admin"
+        property "sonar.password", "admin"
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -67,8 +82,11 @@ dependencies {
 
 
     //firebase
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    //module
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
 
     configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
         config.resolutionStrategy.eachDependency { details ->

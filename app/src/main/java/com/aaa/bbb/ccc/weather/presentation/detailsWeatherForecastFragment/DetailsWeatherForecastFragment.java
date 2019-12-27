@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
-import com.aaa.bbb.ccc.weather.domain.model.DailyForecast;
+import com.aaa.bbb.ccc.weather.model.DailyForecast;
 import com.aaa.bbb.ccc.weather.presentation.adapter.DetailForecastAdapter;
 
 import javax.inject.Inject;
@@ -39,7 +39,7 @@ public class DetailsWeatherForecastFragment extends MvpAppCompatFragment impleme
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        WeatherApp.getDetailsWeatherForecastFragmentComponent().inject(this);
+        WeatherApp.getInstance().getDetailsWeatherForecastFragmentComponent().inject(this);
         View view = inflater.inflate(R.layout.details_weather_forecast, container, false);
         initRecyclerView(view);
         DailyForecast dailyForecast = (DailyForecast) getArguments().getSerializable(KEY);
