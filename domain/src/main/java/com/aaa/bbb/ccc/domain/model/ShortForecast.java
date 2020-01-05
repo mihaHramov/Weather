@@ -14,6 +14,14 @@ public class ShortForecast implements Serializable {
     private Temperature temperature;
     private Double rain;
 
+    public Double getRain() {
+        return rain;
+    }
+
+    public void setRain(Double rain) {
+        this.rain = rain;
+    }
+
     public Temperature getTemperature() {
         return temperature;
     }
