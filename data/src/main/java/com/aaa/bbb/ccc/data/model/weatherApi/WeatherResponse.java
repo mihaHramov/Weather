@@ -4,7 +4,7 @@ package com.aaa.bbb.ccc.data.model.weatherApi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WeatherResponce {
+public class WeatherResponse {
 
     @SerializedName("cod")
     @Expose
