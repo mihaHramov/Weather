@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class ShortForecast implements Serializable {
     private String date;
     private String precipitation;
+    private String rain;
+    private String snow;
     private Wind wind;
     private String clouds;
     private String icon;
@@ -83,5 +85,21 @@ public class ShortForecast implements Serializable {
 
     public void setPressure(String pressure) {
         this.pressure = pressure;
+    }
+
+    public String getRain() {
+        return rain;
+    }
+
+    public void setRain(String rain) {
+        this.rain = rain;
+    }
+
+    public String getSnow() {
+        return snow;
+    }
+
+    public void setSnow(String snow) {
+        this.snow = snow;
     }
 }
