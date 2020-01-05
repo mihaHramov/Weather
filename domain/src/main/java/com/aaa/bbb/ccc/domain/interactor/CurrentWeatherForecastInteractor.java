@@ -51,7 +51,7 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
        return Observable.zip(
                 locationObservable, languageObservable, unitsObservable,
                 (location, lang, utils) -> mRepositoryOfWeather.getWeatherForecast(location.getLat(), location.getLot(), lang, utils))
-                .flatMap((Func1<Observable<WeatherForecast>, Observable<WeatherForecast>>) weatherForecastObservable -> weatherForecastObservable)
+               .flatMap((Func1<Observable<WeatherForecast>, Observable<WeatherForecast>>) weatherForecastObservable -> weatherForecastObservable)
                 .flatMap(this::convertToSynoptic)
                 .subscribeOn(mSchedulerRepository.getIO());
     }

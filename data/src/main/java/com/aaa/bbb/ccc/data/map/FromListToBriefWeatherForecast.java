@@ -24,9 +24,9 @@ public class FromListToBriefWeatherForecast implements Func1<List, BriefWeatherF
 //        if (listWeatherItem.getSnow() != null) {
 //            briefWeatherForecast.setSnow(listWeatherItem.getSnow().get3h());
 //        }
-//        if (listWeatherItem.getClouds() != null && listWeatherItem.getClouds().getAll() != null) {
-//            briefWeatherForecast.setClouds(listWeatherItem.getClouds().getAll());
-//        }
+        if (listWeatherItem.getClouds() != null && listWeatherItem.getClouds().getAll() != null) {
+            briefWeatherForecast.setClouds(listWeatherItem.getClouds().getAll());
+        }
 
 
         briefWeatherForecast.setHumidity(listWeatherItem.getMain().getHumidity());
