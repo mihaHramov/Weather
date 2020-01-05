@@ -1,8 +1,8 @@
 package com.aaa.bbb.ccc.data.repository.impl;
 
 import com.aaa.bbb.ccc.data.map.FromResponseToListOfDetailedWeatherForecast;
+import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
 import com.aaa.bbb.ccc.data.model.WeatherForecast;
-import com.aaa.bbb.ccc.data.model.weatherApi.WeatherResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
@@ -22,28 +22,27 @@ public class WeatherForecastRepository implements IWeatherForecastRepository {
 
     @Override
     public Observable<WeatherForecast> getWeatherForecast(String lat, String lon, String lang, String metric) {
-        //user language
-        Observable<String> observableLanguage = Observable.just(lang);
-        Observable<WeatherForecast> weatherForecastObservable = mWeatherApi.getForecast(lat, lon, lang, metric)
-                .flatMap((Func1<WeatherResponse, Observable<WeatherForecast>>) weatherResponse ->
-                        Observable.just(weatherResponse.getCity())
-                                .zipWith(Observable.just(weatherResponse)
-                                                .flatMap(new FromResponseToListOfDetailedWeatherForecast()),
-                                        WeatherForecast::new)
-                );
+        Observable<String> obsLanguage = Observable.just(lang);
+        return mWeatherApi.getForecast(lat, lon, lang, metric)
+                .flatMap(new FromResponseToListOfDetailedWeatherForecast(),
+                        (weatherResponse, detailedWeatherForecasts) -> new WeatherForecast(weatherResponse.getCity(), detailedWeatherForecasts))
+                .flatMap((Func1<WeatherForecast, Observable<String>>) weatherForecast ->
+                        Observable.just(weatherForecast.getLocality().getName())
+                                .zipWith(obsLanguage, (name, language) -> getTranslateName(language, name))
+                                .flatMap((Func1<Observable<String>, Observable<String>>) stringObservable -> stringObservable), (weatherForecast, s) -> {
+                    weatherForecast.getLocality().setName(s);
+                    return weatherForecast;
+                });
+    }
 
-        observableLanguage
-                .zipWith(weatherForecastObservable, (s, weatherForecast) ->
-                        mTranslateApi
-                                .getTranslate(weatherForecast.getLocality().getName(), s)
-                                .map(translateResponse -> translateResponse.getText().get(0))
-                )
+    private Observable<String> getTranslateName(String language, String name) {
+        Observable<String> observableName = Observable.just(name);
+        return Observable.just(language)
+                .map(new TranslateLanguageMap(OpenWeatherMapApi.BASE_LANGUAGE))
+                .zipWith(observableName, (lang, name1) ->
+                        mTranslateApi.getTranslate(name1, lang)
+                                .map(translateResponse -> translateResponse.getText().get(0)))
                 .flatMap((Func1<Observable<String>, Observable<String>>) stringObservable -> stringObservable)
-                .onErrorResumeNext(weatherForecastObservable.map(weatherForecast -> weatherForecast.getLocality().getName()));
-
-        return weatherForecastObservable.zipWith(observableLanguage, (weatherForecast, s) -> {
-            weatherForecast.getLocality().setName(s);
-            return weatherForecast;
-        });
+                .onErrorResumeNext(observableName);
     }
 }
