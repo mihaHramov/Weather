@@ -47,11 +47,14 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
         private TextView maxTemperature;
         private TextView wind;
         private TextView pressure;
-        private TextView humidity;
+        private TextView rain;
         private TextView snow;
         private TextView clouds;
         private ImageView icon;
         private TextView weatherType;
+        private View snowCell;
+        private View rainCell;
+
 
         DetailForecastViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,10 +64,12 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
             maxTemperature = itemView.findViewById(R.id.max_temperature);
             wind = itemView.findViewById(R.id.wind);
             pressure = itemView.findViewById(R.id.pressure);
-            humidity = itemView.findViewById(R.id.humidity);
+            rain = itemView.findViewById(R.id.rain);
             snow = itemView.findViewById(R.id.snow);
             clouds = itemView.findViewById(R.id.clouds);
             weatherType = itemView.findViewById(R.id.weather_type);
+            rainCell = itemView.findViewById(R.id.rain_cell);
+            snowCell = itemView.findViewById(R.id.snow_cell);
         }
 
         void bind(ShortForecast forecast) {
@@ -72,12 +77,21 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
             minTemperature.setText(forecast.getTemperature().getMax());
             maxTemperature.setText(forecast.getTemperature().getMax());
             pressure.setText(forecast.getPressure());
-            humidity.setText(forecast.getHumidity());
-            snow.setText(forecast.getPrecipitation());
+            showPrecipitation(rain, rainCell, forecast.getRain());
+            showPrecipitation(snow, snowCell, forecast.getSnow());
             clouds.setText(forecast.getClouds());
             Picasso.get().load(forecast.getIcon()).into(icon);
             weatherType.setText(forecast.getDescription());
             wind.setText(forecast.getDescription());
+        }
+
+        private void showPrecipitation(TextView textView, View view, String val) {
+            if (val != null && !val.isEmpty()) {
+                view.setVisibility(View.VISIBLE);
+                textView.setText(val);
+            } else {
+                view.setVisibility(View.GONE);
+            }
         }
     }
 }

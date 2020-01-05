@@ -16,4 +16,6 @@
     <string name="label_temperature">Температура</string>
     <string name="label_wind">Ветер</string>
     <string name="label_rain">Дождь</string>
+    <string name="max_temperature">10</string>
+    <string name="min_temperature">5</string>
 </resources>
