@@ -113,7 +113,7 @@ public class RepositoryModule {
     @Provides
     TranslateApi provideTranslateApi(GsonConverterFactory gsonConverterFactory,
                                      OkHttpClient client, RxJavaCallAdapterFactory factory,
-                                     @Named("TranslateApiBaseUrl") String url) {
+                                     @Named("TranslateApiBaseHttpUrl") HttpUrl url) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(factory)
@@ -124,13 +124,19 @@ public class RepositoryModule {
     }
 
     @Provides
+    @Named("TranslateApiBaseHttpUrl")
+    HttpUrl translateBaseUrl(@Named("TranslateApiBaseUrl") String baseUrl){
+        return HttpUrl.get(baseUrl);
+    }
+
+    @Provides
     HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         return interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
     }
 
     @Provides
-    OkHttpClient provieOkhttpClient(HttpLoggingInterceptor interceptor) {
+    OkHttpClient provideOkhttpClient(HttpLoggingInterceptor interceptor) {
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
 }
