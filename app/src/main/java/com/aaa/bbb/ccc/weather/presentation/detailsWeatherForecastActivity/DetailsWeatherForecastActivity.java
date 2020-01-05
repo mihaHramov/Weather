@@ -11,8 +11,8 @@ import com.aaa.bbb.ccc.weather.presentation.detailsWeatherForecastFragment.Detai
 import moxy.MvpAppCompatActivity;
 
 public class DetailsWeatherForecastActivity extends MvpAppCompatActivity implements DetailsWeatherForecastActivityView {
-    private final static String ID = "id";
-    private final static String LIST = "DailyForecast";
+    private static final  String ID = "id";
+    private static final  String LIST = "DailyForecast";
 
     public static Intent getIntent(Context context, SynopticForecast dailyForecasts, Integer item) {
         Intent intent = new Intent(context, DetailsWeatherForecastActivity.class);
