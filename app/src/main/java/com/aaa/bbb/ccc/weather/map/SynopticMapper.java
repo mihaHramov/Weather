@@ -50,6 +50,12 @@ public class SynopticMapper implements Func1<SynopticForecast, Observable<com.aa
         shortForecastUi.setIcon(shortForecast.getWeatherType().getIcon());
         shortForecastUi.setDescription(shortForecast.getWeatherType().getDescription());
         shortForecastUi.setPressure(shortForecast.getPressure().toString());
+        if (shortForecast.getRain() != null) {
+            shortForecastUi.setRain(shortForecast.getRain().toString());
+        }
+        if (shortForecast.getSnow() != null) {
+            shortForecastUi.setSnow(shortForecast.getSnow().toString());
+        }
         shortForecastUi.setPrecipitation(shortForecast.getPrecipitation().toString());
         if (shortForecast.getWind() != null) {
             Wind wind = new Wind();
@@ -67,6 +73,7 @@ public class SynopticMapper implements Func1<SynopticForecast, Observable<com.aa
 
         return shortForecastUi;
     }
+
     private String getName(com.aaa.bbb.ccc.domain.model.ShortForecast shortForecast) {
         switch (shortForecast.getWind().getWindType()) {
             case E:
