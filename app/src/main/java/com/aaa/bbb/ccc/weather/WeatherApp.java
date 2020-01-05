@@ -21,7 +21,7 @@ public class WeatherApp extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         component = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-        instance = this;
+        setInstance(this);
     }
 
     public static WeatherApp getInstance() {
@@ -39,6 +39,14 @@ public class WeatherApp extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
+        clearInstance();
+    }
+
+    private static void clearInstance() {
         instance = null;
+    }
+
+    private static void setInstance(WeatherApp app){
+        instance = app;
     }
 }
