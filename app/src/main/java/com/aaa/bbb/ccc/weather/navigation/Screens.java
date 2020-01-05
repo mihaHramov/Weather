@@ -9,6 +9,7 @@ import com.aaa.bbb.ccc.weather.presentation.detailsWeatherForecastActivity.Detai
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
+    private Screens(){ }
     public static final class DetailsWeatherScreen extends SupportAppScreen {
         private Integer id;
         private SynopticForecast mSynopticForecast;
