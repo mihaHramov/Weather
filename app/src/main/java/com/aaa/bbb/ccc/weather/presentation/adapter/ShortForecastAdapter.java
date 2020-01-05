@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdapter.ViewHolder> {
+public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdapter.ShortForecastViewHolder> {
     public interface OnItemClickLister {
         void click(Integer id);
     }
@@ -30,9 +30,9 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ShortForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_forecast, parent, false);
-        return new ViewHolder(v);
+        return new ShortForecastViewHolder(v);
     }
 
     public void setItems(List<ShortForecast> items) {
@@ -41,7 +41,7 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ShortForecastViewHolder holder, int position) {
         holder.bind(items.get(position));
         holder.itemView.setOnClickListener(v -> onItemClickLister.click(holder.getAdapterPosition()));
     }
@@ -51,7 +51,7 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
         return items.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ShortForecastViewHolder extends RecyclerView.ViewHolder {
         private ImageView mIcon;
         private TextView mDate;
         private TextView mWeatherType;
@@ -59,7 +59,7 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
         private TextView mMinTemperature;
 
 
-        ViewHolder(@NonNull View itemView) {
+        ShortForecastViewHolder(@NonNull View itemView) {
             super(itemView);
             initView(itemView);
         }

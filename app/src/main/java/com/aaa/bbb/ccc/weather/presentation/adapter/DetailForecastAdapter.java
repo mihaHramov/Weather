@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAdapter.ViewHolder> {
+public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAdapter.DetailForecastViewHolder> {
     private List<ShortForecast> items = new ArrayList<>();
 
     public void setItems(List<ShortForecast> items) {
@@ -26,13 +26,13 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DetailForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.details_weather_forecast_item, parent, false);
-        return new ViewHolder(v);
+        return new DetailForecastViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DetailForecastViewHolder holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -41,7 +41,7 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
         return items.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class DetailForecastViewHolder extends RecyclerView.ViewHolder {
         private TextView mDate;
         private TextView minTemperature;
         private TextView maxTemperature;
@@ -53,7 +53,7 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
         private ImageView icon;
         private TextView weatherType;
 
-        ViewHolder(@NonNull View itemView) {
+        DetailForecastViewHolder(@NonNull View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.icon);
             mDate = itemView.findViewById(R.id.date);
