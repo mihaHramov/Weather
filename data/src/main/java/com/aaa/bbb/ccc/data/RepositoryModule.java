@@ -18,8 +18,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -70,28 +73,51 @@ public class RepositoryModule {
     }
 
     @Provides
+    @Named("OpenWeatherMapApiBaseUrl")
+    String getOpenWeatherMapApiBaseUrl() {
+        return OpenWeatherMapApi.BASE_URL;
+    }
+
+    @Provides
+    RxJavaCallAdapterFactory provideFactory() {
+        return RxJavaCallAdapterFactory.create();
+    }
+
+    @Provides
+    @Named("OpenWeatherMapApiBaseHttpUrl")
+    HttpUrl provideHttpUrlOpenWeatherMapApi(@Named("OpenWeatherMapApiBaseUrl") String url) {
+        return HttpUrl.get(url);
+    }
+
+    @Provides
     OpenWeatherMapApi provideOpenWeatherMapApi(
             GsonConverterFactory gsonConverterFactory,
-            OkHttpClient client) {
+            OkHttpClient client, RxJavaCallAdapterFactory factory,
+            @Named("OpenWeatherMapApiBaseHttpUrl") HttpUrl url) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(gsonConverterFactory)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(OpenWeatherMapApi.BASE_URL)
+                .addCallAdapterFactory(factory)
+                .baseUrl(url)
                 .client(client)
                 .build();//базовый url
         return retrofit.create(OpenWeatherMapApi.class);
     }
 
 
-
+    @Provides
+    @Named("TranslateApiBaseUrl")
+    String TranslateApiBaseUrl() {
+        return TranslateApi.BASE_URL;
+    }
 
     @Provides
     TranslateApi provideTranslateApi(GsonConverterFactory gsonConverterFactory,
-                                    OkHttpClient client) {
+                                     OkHttpClient client, RxJavaCallAdapterFactory factory,
+                                     @Named("TranslateApiBaseUrl") String url) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(gsonConverterFactory)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl( TranslateApi.BASE_URL)
+                .addCallAdapterFactory(factory)
+                .baseUrl(url)
                 .client(client)
                 .build();//базовый url
         return retrofit.create(TranslateApi.class);
