@@ -7,6 +7,7 @@ import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.weather.map.SynopticMapper;
 import com.aaa.bbb.ccc.weather.model.DailyForecast;
 import com.aaa.bbb.ccc.weather.model.SynopticForecast;
+import com.aaa.bbb.ccc.weather.navigation.Screens;
 import com.aaa.bbb.ccc.weather.presentation.weatherListSceenFragment.presentation.view.WeatherListScreenView;
 
 import moxy.InjectViewState;
@@ -49,7 +50,6 @@ public class WeatherListScreenPresenter extends MvpPresenter<WeatherListScreenVi
 
 
     public void onItemForecastClick(Integer item) {
-        //    mRouter.navigateTo(new Screens.DetailsWeatherScreen(item,mSynopticForecast));
-        // mRouter.navigateTo(new Screens.DetailsWeatherScreen(item, mSynopticForecast));
+        mRouter.navigateTo(new Screens.DetailsWeatherScreen(item, mSynopticForecast));
     }
 }
