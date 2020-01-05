@@ -1,6 +1,5 @@
 package com.aaa.bbb.ccc.weather.di.module;
 
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
