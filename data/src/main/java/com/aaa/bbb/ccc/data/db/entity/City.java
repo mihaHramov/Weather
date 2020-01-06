@@ -8,11 +8,20 @@ public class City {
     @PrimaryKey
     private long id;
     private String name;
+    private String langName;
     private String country;
     private Double latSin;
     private Double latCos;
     private Double lonSin;
     private Double lonCos;
+
+    public String getLangName() {
+        return langName;
+    }
+
+    public void setLangName(String langName) {
+        this.langName = langName;
+    }
 
     public long getId() {
         return id;
