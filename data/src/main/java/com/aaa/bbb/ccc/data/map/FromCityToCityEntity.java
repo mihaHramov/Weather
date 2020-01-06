@@ -26,7 +26,7 @@ public class FromCityToCityEntity implements Func1<City, com.aaa.bbb.ccc.data.db
         entityCity.setLatSin(latSin);
         entityCity.setLonCos(lonCos);
         entityCity.setLonSin(lonSin);
-        return null;
+        return entityCity;
     }
 
     private Double convertRadian(Double agle) {
