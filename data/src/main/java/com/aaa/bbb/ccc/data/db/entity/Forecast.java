@@ -24,6 +24,14 @@ public class Forecast {
     @ColumnInfo(name = "city_id")
     private long cityId;
 
+    public long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
+    }
+
     @Embedded
     private Wind wind;
     @Embedded
