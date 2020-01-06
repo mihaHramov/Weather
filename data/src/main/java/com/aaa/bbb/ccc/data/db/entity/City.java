@@ -1,5 +1,6 @@
 package com.aaa.bbb.ccc.data.db.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,6 +9,7 @@ public class City {
     @PrimaryKey
     private long id;
     private String name;
+    @ColumnInfo(name = "lang_name")
     private String langName;
     private String country;
     private Double latSin;
