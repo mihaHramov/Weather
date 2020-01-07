@@ -7,6 +7,24 @@ public class City implements Serializable {
     private String name;
     private String langName;
     private String country;
+    private Integer sunrise;
+    private Integer sunset;
+
+    public Integer getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(Integer sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public Integer getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(Integer sunset) {
+        this.sunset = sunset;
+    }
 
     public long getId() {
         return id;
