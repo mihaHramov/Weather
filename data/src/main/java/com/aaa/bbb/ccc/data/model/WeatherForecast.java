@@ -1,7 +1,5 @@
 package com.aaa.bbb.ccc.data.model;
 
-import com.aaa.bbb.ccc.data.model.weatherApi.City;
-
 import java.util.List;
 
 public class WeatherForecast {
