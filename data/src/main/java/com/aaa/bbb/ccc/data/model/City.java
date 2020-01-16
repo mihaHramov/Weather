@@ -3,7 +3,7 @@ package com.aaa.bbb.ccc.data.model;
 import java.io.Serializable;
 
 public class City implements Serializable {
-    private long id;
+    private Integer id;
     private String name;
     private String langName;
     private String country;
@@ -26,11 +26,11 @@ public class City implements Serializable {
         this.sunset = sunset;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
