@@ -21,17 +21,21 @@ public class WeatherForecastRepository implements IWeatherForecastRepository {
     private OpenWeatherMapApi mWeatherApi;
     private TranslateApi mTranslateApi;
     private ICashRepository mCashRepository;
+    private ZipCityAndTranslateInfo mapper;
 
 
     public WeatherForecastRepository(OpenWeatherMapApi mWeatherApi, ICashRepository cashRepository, TranslateApi translateApi) {
         this.mWeatherApi = mWeatherApi;
         this.mTranslateApi = translateApi;
         this.mCashRepository = cashRepository;
+        this.mapper = new ZipCityAndTranslateInfo();
     }
 
     @Override
     public Observable<WeatherForecast> getWeatherForecast(String lat, String lon, String lang, String metric) {
         Observable<String> obsLanguage = Observable.just(lang);
+        Observable<WeatherForecast> weatherForecastObservableDb = mCashRepository.getWeatherForecast(lat, lon, lang, metric);
+
         return mWeatherApi.getForecast(lat, lon, lang, metric)
                 .flatMap(new FromResponseToListOfDetailedWeatherForecast(),
                         (weatherResponse, detailedWeatherForecasts) -> Observable.just(weatherResponse.getCity())
@@ -39,22 +43,24 @@ public class WeatherForecastRepository implements IWeatherForecastRepository {
                                 .zipWith(Observable.just(detailedWeatherForecasts), WeatherForecast::new))
                 .flatMap((Func1<Observable<WeatherForecast>, Observable<WeatherForecast>>)
                         weatherForecastObservable -> weatherForecastObservable)
+                //save forecast
+                .doOnNext(weatherForecast -> mCashRepository.saveWeatherForecast(weatherForecast))
                 .zipWith(obsLanguage, (weatherForecast, s) ->
                         Observable.just(weatherForecast)
                                 .zipWith(translateCityName(weatherForecast.getLocality(), s), (weatherForecast1, city) -> {
                                     weatherForecast1.setLocality(city);
                                     return weatherForecast1;
                                 }))
-                .flatMap((Func1<Observable<WeatherForecast>, Observable<WeatherForecast>>) weatherForecastObservable -> weatherForecastObservable);
+                .flatMap((Func1<Observable<WeatherForecast>, Observable<WeatherForecast>>) weatherForecastObservable -> weatherForecastObservable)
+                .onErrorResumeNext(weatherForecastObservableDb);
     }
 
     private Observable<City> translateCityName(City locality, String lang) {
-        Observable<City> cityDbObs = mCashRepository.getCity(locality.getId(),lang);
+        Observable<City> cityDbObs = mCashRepository.getCity(locality.getId(), lang);
         Observable<City> cityObservable = Observable.just(locality);
 
         Observable<String> language = Observable.just(lang);
         Observable<String> name = cityObservable.map(City::getName);
-        ZipCityAndTranslateInfo mapper = new ZipCityAndTranslateInfo();
         Observable<String> oldLanguage = language.map(new TranslateLanguageMap(OpenWeatherMapApi.BASE_LANGUAGE));
         Observable<City> defaultResult = Observable.zip(name, Observable.just(OpenWeatherMapApi.BASE_LANGUAGE), Pair::new)
                 .zipWith(cityObservable, mapper);
