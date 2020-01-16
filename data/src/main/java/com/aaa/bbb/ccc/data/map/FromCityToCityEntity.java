@@ -26,6 +26,8 @@ public class FromCityToCityEntity implements Func1<City, com.aaa.bbb.ccc.data.db
         entityCity.setLatSin(latSin);
         entityCity.setLonCos(lonCos);
         entityCity.setLonSin(lonSin);
+        entityCity.setLon(city.getLon());
+        entityCity.setLat(city.getLat());
         return entityCity;
     }
 
