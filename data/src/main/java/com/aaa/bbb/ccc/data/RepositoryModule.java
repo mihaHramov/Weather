@@ -2,13 +2,18 @@ package com.aaa.bbb.ccc.data;
 
 import android.content.Context;
 
+import androidx.room.Room;
+
+import com.aaa.bbb.ccc.data.db.WeatherDatabase;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
+import com.aaa.bbb.ccc.data.repository.impl.CashRepository;
 import com.aaa.bbb.ccc.data.repository.impl.LocationRepository;
 import com.aaa.bbb.ccc.data.repository.impl.PermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.impl.SchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.impl.SettingsRepository;
 import com.aaa.bbb.ccc.data.repository.impl.WeatherForecastRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
@@ -47,8 +52,13 @@ public class RepositoryModule {
     }
 
     @Provides
-    IWeatherForecastRepository provideWeatherForecastRepository(OpenWeatherMapApi api, TranslateApi translateApi) {
-        return new WeatherForecastRepository(api, translateApi);
+    IWeatherForecastRepository provideWeatherForecastRepository(OpenWeatherMapApi api, ICashRepository cashRepository, TranslateApi translateApi) {
+        return new WeatherForecastRepository(api, cashRepository, translateApi);
+    }
+
+    @Provides
+    ICashRepository provideCashRepository(WeatherDatabase weatherDatabase) {
+        return new CashRepository(weatherDatabase);
     }
 
     @Provides
@@ -125,7 +135,7 @@ public class RepositoryModule {
 
     @Provides
     @Named("TranslateApiBaseHttpUrl")
-    HttpUrl translateBaseUrl(@Named("TranslateApiBaseUrl") String baseUrl){
+    HttpUrl translateBaseUrl(@Named("TranslateApiBaseUrl") String baseUrl) {
         return HttpUrl.get(baseUrl);
     }
 
@@ -138,5 +148,10 @@ public class RepositoryModule {
     @Provides
     OkHttpClient provideOkhttpClient(HttpLoggingInterceptor interceptor) {
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
+    }
+
+    @Provides
+    WeatherDatabase provideWeatherDatabase(Context context) {
+        return Room.databaseBuilder(context, WeatherDatabase.class, WeatherDatabase.NAME).build();
     }
 }

@@ -5,6 +5,7 @@ import com.aaa.bbb.ccc.data.model.translateApi.TranslateResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.impl.WeatherForecastRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 import com.google.gson.Gson;
 
 import org.junit.After;
@@ -42,6 +43,7 @@ public class WeatherForecastRepositoryTest {
     private TranslateApi translateApi;
     private String translateLang = "en-ru";
     private Gson gson;
+    private ICashRepository cashRepository;
     private String responseOfTranslate = "{\"code\":200,\"lang\":\"" + translateLang + "\",\"text\":[\"" + translateCityName + "\"]}";
 
     private Dispatcher dispatcherWeather = new Dispatcher() {
@@ -97,7 +99,8 @@ public class WeatherForecastRepositoryTest {
                 okHttpClient,
                 repositoryModule.provideFactory(),
                 baseUrl);
-        repository = new WeatherForecastRepository(weatherApi, translateApi);
+        cashRepository = Mockito.mock(ICashRepository.class);
+        repository = new WeatherForecastRepository(weatherApi, cashRepository, translateApi);
         testSubscriber = new TestSubscriber<>();
     }
 
@@ -139,11 +142,11 @@ public class WeatherForecastRepositoryTest {
         responseOfTranslate = "{\"code\":200,\"lang\":\"" + translateLang + "\",\"text\":[]}";
         TranslateResponse response = gson.fromJson(responseOfTranslate, TranslateResponse.class);
         Mockito.when(translateApi.getTranslate(anyString(), anyString())).thenReturn(Observable.just(response));
-        repository = new WeatherForecastRepository(weatherApi, translateApi);
+        repository = new WeatherForecastRepository(weatherApi, cashRepository, translateApi);
         repository.getWeatherForecast(lat, lon, lang, metric)
                 .subscribe(testSubscriber);
         testSubscriber.assertCompleted();
-        Assert.assertEquals(testSubscriber.getOnNextEvents().get(0).getLocality().getName(),cityName);
+        Assert.assertEquals(testSubscriber.getOnNextEvents().get(0).getLocality().getName(), cityName);
 
     }
 
