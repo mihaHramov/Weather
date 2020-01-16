@@ -12,9 +12,10 @@ import com.aaa.bbb.ccc.data.model.weatherApi.Wind;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = City.class,parentColumns = "id",childColumns = "city_id",onDelete = CASCADE))
+@Entity(foreignKeys = @ForeignKey(entity = City.class, parentColumns = "id", childColumns = "city_id", onDelete = CASCADE))
 public class Forecast {
     @PrimaryKey
+    private long id;
     private Integer date;
     private Double snow;
     private Integer clouds;
