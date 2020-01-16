@@ -9,7 +9,8 @@ public class City implements Serializable {
     private String country;
     private Integer sunrise;
     private Integer sunset;
-
+    private Double lat;
+    private Double lon;
     public Integer getSunrise() {
         return sunrise;
     }
@@ -56,5 +57,19 @@ public class City implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
+    public Double getLat() {
+        return this.lat;
+    }
+    public Double getLon() {
+        return this.lon;
     }
 }

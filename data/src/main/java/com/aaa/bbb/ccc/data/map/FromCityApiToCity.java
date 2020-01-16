@@ -13,6 +13,8 @@ public class FromCityApiToCity implements Func1<City, com.aaa.bbb.ccc.data.model
         city.setId(apiCity.getId());
         city.setSunrise(apiCity.getSunrise());
         city.setSunset(apiCity.getSunset());
+        city.setLat(apiCity.getCoord().getLat());
+        city.setLon(apiCity.getCoord().getLon());
         return city;
     }
 }

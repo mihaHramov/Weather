@@ -1,6 +1,6 @@
 package com.aaa.bbb.ccc.data.map;
 
-import com.aaa.bbb.ccc.data.model.weatherApi.City;
+import com.aaa.bbb.ccc.data.model.City;
 
 import rx.functions.Func1;
 
@@ -9,8 +9,8 @@ public class FromCityToCityEntity implements Func1<City, com.aaa.bbb.ccc.data.db
 
     @Override
     public com.aaa.bbb.ccc.data.db.entity.City call(City city) {
-        double lat = convertRadian(city.getCoord().getLat());
-        double lon = convertRadian(city.getCoord().getLon());
+        double lat = convertRadian(city.getLat());
+        double lon = convertRadian(city.getLon());
 
         Double latSin = Math.sin(lat);
         Double latCos = Math.cos(lat);
