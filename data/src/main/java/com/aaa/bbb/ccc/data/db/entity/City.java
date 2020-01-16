@@ -12,10 +12,29 @@ public class City {
     @ColumnInfo(name = "lang_name")
     private String langName;
     private String country;
+    private Double lat;
+    private Double lon;
     private Double latSin;
     private Double latCos;
     private Double lonSin;
     private Double lonCos;
+
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
 
     public String getLangName() {
         return langName;
@@ -48,7 +67,6 @@ public class City {
     public void setCountry(String country) {
         this.country = country;
     }
-
 
 
     public Double getLatSin() {
