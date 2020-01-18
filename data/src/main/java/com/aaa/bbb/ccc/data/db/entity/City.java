@@ -6,9 +6,11 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class City {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
+    @ColumnInfo(name = "city_id")
+    private Integer idCity;
     @ColumnInfo(name = "lang_name")
     private String langName;
     private String country;
@@ -19,6 +21,13 @@ public class City {
     private Double lonSin;
     private Double lonCos;
 
+    public Integer getIdCity() {
+        return idCity;
+    }
+
+    public void setIdCity(Integer idCity) {
+        this.idCity = idCity;
+    }
 
     public Double getLat() {
         return lat;
