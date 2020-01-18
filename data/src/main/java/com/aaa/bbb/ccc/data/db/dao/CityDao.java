@@ -13,6 +13,6 @@ public interface CityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(City employee);
 
-    @Query("SELECT * FROM city WHERE id=:id and lang_name like :lang")
+    @Query("SELECT * FROM city WHERE city_id=:id and lang_name like :lang")
     City getByIdAndLanguage(long  id,String lang);
 }
