@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.aaa.bbb.ccc.data.model.Temperature;
@@ -12,7 +13,9 @@ import com.aaa.bbb.ccc.data.model.weatherApi.Wind;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = City.class, parentColumns = "id", childColumns = "city_id", onDelete = CASCADE))
+@Entity(foreignKeys = @ForeignKey(entity = City.class, parentColumns = "id", childColumns = "city_id", onDelete = CASCADE),
+        indices = {@Index("city_id")}
+)
 public class Forecast {
     @PrimaryKey
     private long id;
@@ -21,9 +24,16 @@ public class Forecast {
     private Integer clouds;
     private Integer humidity;
     private Integer pressure;
-
     @ColumnInfo(name = "city_id")
     private long cityId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getCityId() {
         return cityId;
