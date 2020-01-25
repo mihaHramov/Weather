@@ -52,8 +52,8 @@ public class RepositoryModule {
     }
 
     @Provides
-    IWeatherForecastRepository provideWeatherForecastRepository(OpenWeatherMapApi api, ICashRepository cashRepository, TranslateApi translateApi) {
-        return new WeatherForecastRepository(api, cashRepository, translateApi);
+    IWeatherForecastRepository provideWeatherForecastRepository(OpenWeatherMapApi api, ICashRepository cashRepository) {
+        return new WeatherForecastRepository(api, cashRepository);
     }
 
     @Provides
