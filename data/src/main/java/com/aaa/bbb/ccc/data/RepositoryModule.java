@@ -8,12 +8,14 @@ import com.aaa.bbb.ccc.data.db.WeatherDatabase;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.impl.CashRepository;
+import com.aaa.bbb.ccc.data.repository.impl.CityRepository;
 import com.aaa.bbb.ccc.data.repository.impl.LocationRepository;
 import com.aaa.bbb.ccc.data.repository.impl.PermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.impl.SchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.impl.SettingsRepository;
 import com.aaa.bbb.ccc.data.repository.impl.WeatherForecastRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
+import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
@@ -54,6 +56,11 @@ public class RepositoryModule {
     @Provides
     IWeatherForecastRepository provideWeatherForecastRepository(OpenWeatherMapApi api, ICashRepository cashRepository) {
         return new WeatherForecastRepository(api, cashRepository);
+    }
+
+    @Provides
+    ICityRepository provideCityRepository(ICashRepository cashRepository, TranslateApi translateApi) {
+        return new CityRepository(cashRepository, translateApi);
     }
 
     @Provides
