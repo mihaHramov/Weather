@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
@@ -37,10 +38,11 @@ public class WeatherListFragmentModule {
 
     @Provides
     ICurrentWeatherForecastInteractor interactor(IPermissionsRepository permissionsRepository,
-                                                                                   IWeatherForecastRepository weatherForecastRepository,
-                                                                                   ILocationRepository locationRepository,
-                                                                                   ISettingsRepository settingsRepository,
-                                                                                   ISchedulerRepository schedulerRepository){
-        return new CurrentWeatherForecastInteractor(permissionsRepository,weatherForecastRepository,locationRepository,settingsRepository,schedulerRepository);
+                                                 IWeatherForecastRepository weatherForecastRepository,
+                                                 ILocationRepository locationRepository,
+                                                 ISettingsRepository settingsRepository,
+                                                 ISchedulerRepository schedulerRepository,
+                                                 ICityRepository cityRepository){
+        return new CurrentWeatherForecastInteractor(permissionsRepository,weatherForecastRepository,locationRepository,settingsRepository,schedulerRepository,cityRepository);
     }
 }
