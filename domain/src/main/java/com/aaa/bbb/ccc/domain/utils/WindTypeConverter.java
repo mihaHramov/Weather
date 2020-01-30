@@ -3,7 +3,9 @@ package com.aaa.bbb.ccc.domain.utils;
 import com.aaa.bbb.ccc.domain.model.WindType;
 
 public class WindTypeConverter {
-
+    private WindTypeConverter() {
+        throw new IllegalStateException("Utility class");
+    }
     public static WindType convert(com.aaa.bbb.ccc.data.model.weatherApi.Wind wind) {
         WindType w;
         Integer deg = wind.getDeg();
