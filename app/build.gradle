@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -33,11 +34,13 @@ def moxyVersion = "2.0.2"
 
 sonarqube {
     properties {
-        property "sonar.projectName", "weather"
-        property "sonar.projectKey", "com.aaa.bbb.ccc.weather"
+        property "app.sonar.projectName", "weather"
+        property "app.sonar.projectKey", "com.aaa.bbb.ccc.weather"
         property "sonar.host.url", "http://localhost:9000"
+        property "sonar.projectBaseDir", "$rootDir"
         property "sonar.language", "java"
-        property "sonar.sources", "src/main/"
+        property "sonar.sources", "."
+        property "sonar.tests",""
         property "sonar.login", "admin"
         property "sonar.password", "admin"
     }
