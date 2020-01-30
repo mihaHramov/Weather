@@ -44,8 +44,6 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     @Inject
     NavigatorHolder navigatorHolder;
 
-    private Navigator navigator;
-
     @InjectPresenter
     WeatherListScreenPresenter mWeatherListScreenPresenter;
 
@@ -63,7 +61,7 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
 
     @Override
     public void showError(String message) {
-        Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -108,7 +106,9 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     @Override
     public void onResume() {
         super.onResume();
-        navigator = new SupportAppNavigator(getActivity(), -1);
-        navigatorHolder.setNavigator(navigator);
+        if (getActivity() != null) {
+            Navigator navigator = new SupportAppNavigator(getActivity(), -1);
+            navigatorHolder.setNavigator(navigator);
+        }
     }
 }
