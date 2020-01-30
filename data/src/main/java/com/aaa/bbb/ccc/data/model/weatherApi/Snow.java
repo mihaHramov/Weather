@@ -7,13 +7,13 @@ public class Snow {
 
     @SerializedName("3h")
     @Expose
-    private Double _3h;
+    private Double threeHour;
 
     public Double get3h() {
-        return _3h;
+        return threeHour;
     }
 
-    public void set3h(Double _3h) {
-        this._3h = _3h;
+    public void set3h(Double threeHour) {
+        this.threeHour = threeHour;
     }
 }

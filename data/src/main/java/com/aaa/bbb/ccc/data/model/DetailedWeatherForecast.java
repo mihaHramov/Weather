@@ -4,14 +4,14 @@ import java.util.List;
 
 public class DetailedWeatherForecast {
     private List<BriefWeatherForecast> briefWeatherForecasts;
-    private Integer Date;
+    private Integer date;
 
     public Integer getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(Integer date) {
-        Date = date;
+        this.date = date;
     }
 
     public List<BriefWeatherForecast> getBriefWeatherForecasts() {

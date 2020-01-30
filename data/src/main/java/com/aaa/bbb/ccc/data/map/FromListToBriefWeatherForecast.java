@@ -34,8 +34,8 @@ public class FromListToBriefWeatherForecast implements Func1<List, BriefWeatherF
         Temperature temperature = new Temperature(listWeatherItem.getMain().getTempMin(), listWeatherItem.getMain().getTempMax(), listWeatherItem.getMain().getTemp());
         briefWeatherForecast.setTemperature(temperature);
         Weather weather = listWeatherItem.getWeather().get(0);
-        String WEATHER_TYPE_ICON_URL_TEMPLATE = "http://openweathermap.org/img/wn/%1$s@2x.png";
-        String weatherIconUrl = String.format(WEATHER_TYPE_ICON_URL_TEMPLATE, weather.getIcon());
+        String weatherTypeIconUrlTemplate = "http://openweathermap.org/img/wn/%1$s@2x.png";
+        String weatherIconUrl = String.format(weatherTypeIconUrlTemplate, weather.getIcon());
         WeatherType weatherType = new WeatherType(weather.getDescription(), weatherIconUrl);
         briefWeatherForecast.setWeatherType(weatherType);
         return briefWeatherForecast;
