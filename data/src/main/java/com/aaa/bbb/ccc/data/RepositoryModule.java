@@ -124,7 +124,7 @@ public class RepositoryModule {
 
     @Provides
     @Named("TranslateApiBaseUrl")
-    String TranslateApiBaseUrl() {
+    String getTranslateApiBaseUrl() {
         return Const.TranslateApiBaseUrl;
     }
 
