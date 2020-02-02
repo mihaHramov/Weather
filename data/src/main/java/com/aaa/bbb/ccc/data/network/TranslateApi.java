@@ -1,6 +1,6 @@
 package com.aaa.bbb.ccc.data.network;
 
-import com.aaa.bbb.ccc.data.model.translateApi.TranslateResponse;
+import com.aaa.bbb.ccc.data.model.api.translate.TranslateResponse;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

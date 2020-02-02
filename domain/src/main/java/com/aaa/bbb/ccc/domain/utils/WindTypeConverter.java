@@ -6,7 +6,7 @@ public class WindTypeConverter {
     private WindTypeConverter() {
         throw new IllegalStateException("Utility class");
     }
-    public static WindType convert(com.aaa.bbb.ccc.data.model.weatherApi.Wind wind) {
+    public static WindType convert(com.aaa.bbb.ccc.data.model.api.weatherApi.Wind wind) {
         WindType w;
         Integer deg = wind.getDeg();
         if (deg == 360 || deg == 0) {

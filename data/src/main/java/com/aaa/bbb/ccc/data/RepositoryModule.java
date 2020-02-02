@@ -91,9 +91,9 @@ public class RepositoryModule {
     }
 
     @Provides
-    @Named("OpenWeatherMapApiBaseUrl")
+    @Named("OPEN_WEATHER_MAP_API_BASE_URL")
     String getOpenWeatherMapApiBaseUrl() {
-        return Const.OpenWeatherMapApiBaseUrl;
+        return Const.OPEN_WEATHER_MAP_API_BASE_URL;
     }
 
     @Provides
@@ -103,7 +103,7 @@ public class RepositoryModule {
 
     @Provides
     @Named("OpenWeatherMapApiBaseHttpUrl")
-    HttpUrl provideHttpUrlOpenWeatherMapApi(@Named("OpenWeatherMapApiBaseUrl") String url) {
+    HttpUrl provideHttpUrlOpenWeatherMapApi(@Named("OPEN_WEATHER_MAP_API_BASE_URL") String url) {
         return HttpUrl.get(url);
     }
 
@@ -123,9 +123,9 @@ public class RepositoryModule {
 
 
     @Provides
-    @Named("TranslateApiBaseUrl")
+    @Named("TRANSLATE_API_BASE_URL")
     String getTranslateApiBaseUrl() {
-        return Const.TranslateApiBaseUrl;
+        return Const.TRANSLATE_API_BASE_URL;
     }
 
     @Provides
@@ -143,7 +143,7 @@ public class RepositoryModule {
 
     @Provides
     @Named("TranslateApiBaseHttpUrl")
-    HttpUrl translateBaseUrl(@Named("TranslateApiBaseUrl") String baseUrl) {
+    HttpUrl translateBaseUrl(@Named("TRANSLATE_API_BASE_URL") String baseUrl) {
         return HttpUrl.get(baseUrl);
     }
 

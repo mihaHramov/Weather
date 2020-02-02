@@ -2,7 +2,7 @@ package com.aaa.bbb.ccc.data.map;
 
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
 import com.aaa.bbb.ccc.data.model.DetailedWeatherForecast;
-import com.aaa.bbb.ccc.data.model.weatherApi.WeatherResponse;
+import com.aaa.bbb.ccc.data.model.api.weatherApi.WeatherResponse;
 
 import java.util.List;
 import java.util.Map;

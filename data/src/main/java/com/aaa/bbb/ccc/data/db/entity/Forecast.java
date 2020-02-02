@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 
 import com.aaa.bbb.ccc.data.model.Temperature;
 import com.aaa.bbb.ccc.data.model.WeatherType;
-import com.aaa.bbb.ccc.data.model.weatherApi.Wind;
+import com.aaa.bbb.ccc.data.model.api.weatherApi.Wind;
 
 import static androidx.room.ForeignKey.CASCADE;
 

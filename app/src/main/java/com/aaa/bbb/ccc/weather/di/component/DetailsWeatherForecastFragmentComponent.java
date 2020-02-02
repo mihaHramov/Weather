@@ -1,7 +1,7 @@
 package com.aaa.bbb.ccc.weather.di.component;
 
 import com.aaa.bbb.ccc.weather.di.module.DetailsWeatherForecastFragmentModule;
-import com.aaa.bbb.ccc.weather.presentation.detailsWeatherForecastFragment.DetailsWeatherForecastFragment;
+import com.aaa.bbb.ccc.weather.presentation.forecast.details.fragment.DetailsWeatherForecastFragment;
 
 import dagger.Subcomponent;
 

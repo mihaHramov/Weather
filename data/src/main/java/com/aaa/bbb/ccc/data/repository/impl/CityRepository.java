@@ -29,8 +29,8 @@ public class CityRepository implements ICityRepository {
         Observable<City> cityObservable = Observable.just(locality);
         Observable<String> language = Observable.just(locality.getLangName());
         Observable<String> name = cityObservable.map(City::getName);
-        Observable<String> oldLanguage = language.map(new TranslateLanguageMap(Const.OpenWeatherMapApiBaseLanguage));
-        Observable<City> defaultResult = Observable.zip(name, Observable.just(Const.OpenWeatherMapApiBaseLanguage), Pair::new)
+        Observable<String> oldLanguage = language.map(new TranslateLanguageMap(Const.OPEN_WEATHER_MAP_API_BASE_LANGUAGE));
+        Observable<City> defaultResult = Observable.zip(name, Observable.just(Const.OPEN_WEATHER_MAP_API_BASE_LANGUAGE), Pair::new)
                 .zipWith(cityObservable, mapper);
         Observable<City> resultOfTranslateObs = Observable.zip(name, oldLanguage, Pair::new)
                 .flatMap(stringStringPair -> getTranslate(stringStringPair.first, stringStringPair.second),

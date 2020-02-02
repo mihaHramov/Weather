@@ -1,6 +1,6 @@
 package com.aaa.bbb.ccc.data.map;
 
-import com.aaa.bbb.ccc.data.model.weatherApi.City;
+import com.aaa.bbb.ccc.data.model.api.weatherApi.City;
 
 import rx.functions.Func1;
 

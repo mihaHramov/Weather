@@ -13,7 +13,7 @@ import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.domain.interactor.CurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.weather.presentation.adapter.ShortForecastAdapter;
-import com.aaa.bbb.ccc.weather.presentation.weatherListSceenFragment.presentation.presenter.WeatherListScreenPresenter;
+import com.aaa.bbb.ccc.weather.presentation.forecast.list.fragment.WeatherListScreenPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,7 +32,7 @@ public class WeatherListFragmentModule {
     }
 
     @Provides
-    public WeatherListScreenPresenter presenter(ICurrentWeatherForecastInteractor interactor, Router router,ISchedulerRepository mSchedulerRepository) {
+    WeatherListScreenPresenter presenter(ICurrentWeatherForecastInteractor interactor, Router router,ISchedulerRepository mSchedulerRepository) {
         return new WeatherListScreenPresenter(mSchedulerRepository, interactor, router);
     }
 

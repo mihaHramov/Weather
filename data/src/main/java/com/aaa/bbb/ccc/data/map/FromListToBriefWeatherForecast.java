@@ -4,8 +4,8 @@ package com.aaa.bbb.ccc.data.map;
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
 import com.aaa.bbb.ccc.data.model.Temperature;
 import com.aaa.bbb.ccc.data.model.WeatherType;
-import com.aaa.bbb.ccc.data.model.weatherApi.List;
-import com.aaa.bbb.ccc.data.model.weatherApi.Weather;
+import com.aaa.bbb.ccc.data.model.api.weatherApi.List;
+import com.aaa.bbb.ccc.data.model.api.weatherApi.Weather;
 
 import rx.functions.Func1;
 

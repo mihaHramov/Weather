@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.aaa.bbb.ccc.weather.model.SynopticForecast;
-import com.aaa.bbb.ccc.weather.presentation.detailsWeatherForecastActivity.DetailsWeatherForecastActivity;
+import com.aaa.bbb.ccc.weather.presentation.forecast.details.activity.DetailsWeatherForecastActivity;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
