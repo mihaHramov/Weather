@@ -1,6 +1,6 @@
 package com.aaa.bbb.ccc.data.network;
 
-import com.aaa.bbb.ccc.data.model.api.weatherApi.WeatherResponse;
+import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

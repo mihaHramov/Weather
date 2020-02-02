@@ -3,7 +3,7 @@ package com.aaa.bbb.ccc.data.map;
 import com.aaa.bbb.ccc.data.model.City;
 import com.aaa.bbb.ccc.data.model.DetailedWeatherForecast;
 import com.aaa.bbb.ccc.data.model.WeatherForecast;
-import com.aaa.bbb.ccc.data.model.api.weatherApi.WeatherResponse;
+import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 
 import java.util.List;
 

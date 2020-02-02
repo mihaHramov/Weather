@@ -2,7 +2,7 @@ package com.aaa.bbb.ccc.data;
 
 import com.aaa.bbb.ccc.data.model.City;
 import com.aaa.bbb.ccc.data.model.WeatherForecast;
-import com.aaa.bbb.ccc.data.model.api.weatherApi.WeatherResponse;
+import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.repository.impl.WeatherForecastRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;

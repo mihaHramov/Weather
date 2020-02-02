@@ -1,7 +1,7 @@
 package com.aaa.bbb.ccc.data.model;
 
 
-import com.aaa.bbb.ccc.data.model.api.weatherApi.Wind;
+import com.aaa.bbb.ccc.data.model.api.weather.Wind;
 
 public class BriefWeatherForecast {
     private Double snow;
@@ -83,6 +83,7 @@ public class BriefWeatherForecast {
     public void setDate(Integer date) {
         this.date = date;
     }
+
     public Integer getDate() {
         return date;
     }

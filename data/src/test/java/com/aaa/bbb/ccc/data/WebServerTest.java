@@ -1,7 +1,7 @@
 package com.aaa.bbb.ccc.data;
 
 import com.aaa.bbb.ccc.data.model.api.translate.TranslateResponse;
-import com.aaa.bbb.ccc.data.model.api.weatherApi.WeatherResponse;
+import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.google.gson.Gson;

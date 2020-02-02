@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.model.api.weatherApi;
+package com.aaa.bbb.ccc.data.model.api.weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

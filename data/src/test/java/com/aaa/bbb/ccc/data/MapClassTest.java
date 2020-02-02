@@ -6,7 +6,7 @@ import com.aaa.bbb.ccc.data.map.FromCityApiToCity;
 import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
 import com.aaa.bbb.ccc.data.map.ZipCityAndTranslateInfo;
 import com.aaa.bbb.ccc.data.model.City;
-import com.aaa.bbb.ccc.data.model.api.weatherApi.Coord;
+import com.aaa.bbb.ccc.data.model.api.weather.Coord;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class MapClassTest {
     }
     @Test
     public void FromCityApiToCity_isCorrect() {
-        com.aaa.bbb.ccc.data.model.api.weatherApi.City city = new com.aaa.bbb.ccc.data.model.api.weatherApi.City();
+        com.aaa.bbb.ccc.data.model.api.weather.City city = new com.aaa.bbb.ccc.data.model.api.weather.City();
         city.setId(0);
         city.setName("London");
         city.setCountry("uk");

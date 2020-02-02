@@ -1,7 +1,7 @@
 package com.aaa.bbb.ccc.data.map;
 
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
-import com.aaa.bbb.ccc.data.model.api.weatherApi.List;
+import com.aaa.bbb.ccc.data.model.api.weather.List;
 import com.aaa.bbb.ccc.utils.DateConverter;
 
 import java.util.ArrayList;
