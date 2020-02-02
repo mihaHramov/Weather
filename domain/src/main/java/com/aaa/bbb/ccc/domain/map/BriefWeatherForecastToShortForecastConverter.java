@@ -5,7 +5,7 @@ import com.aaa.bbb.ccc.data.model.Temperature;
 import com.aaa.bbb.ccc.domain.model.ShortForecast;
 import com.aaa.bbb.ccc.domain.model.WeatherType;
 import com.aaa.bbb.ccc.domain.model.Wind;
-import com.aaa.bbb.ccc.domain.utils.DateConverter;
+import com.aaa.bbb.ccc.utils.DateConverter;
 import com.aaa.bbb.ccc.domain.utils.WindTypeConverter;
 
 import java.util.Calendar;

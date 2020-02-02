@@ -1,5 +1,4 @@
-package com.aaa.bbb.ccc.domain.utils;
-
+package com.aaa.bbb.ccc.utils;
 
 import java.util.Calendar;
 import java.util.Date;
