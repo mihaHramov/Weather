@@ -1,0 +1,36 @@
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests {
+            all {
+                testLogging {
+                    events 'passed', 'skipped', 'failed'
+                }
+            }
+        }
+    }
+
+    packagingOptions {
+        //Bugfix for AutoValue 1.7rc1 and AutoFactory 1.0-beta7 in one project
+        exclude 'META-INF/gradle/incremental.annotation.processors'
+    }
+}
