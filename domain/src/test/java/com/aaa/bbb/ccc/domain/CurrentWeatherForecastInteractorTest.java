@@ -123,7 +123,7 @@ public class CurrentWeatherForecastInteractorTest {
     }
 
     @Test
-    public void getCurrentWeather_when_permissions_return_false() {
+    public void testInteractorWhenUserNotGrandPermissions() {
         when(mPermissionsRepository.getPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(Observable.just(false));
         interactor.getCurrentWeather().subscribe(testSubscriber);
         testSubscriber.assertNoErrors();
@@ -154,7 +154,7 @@ public class CurrentWeatherForecastInteractorTest {
     }
 
     @Test
-    public void getCurrentWeather_when_api_return_error_Test() {
+    public void testGetCurrentWeatherWhenServerReturnError() {
         City city = createCity();
         WeatherForecast weatherForecast = new WeatherForecast(city, new ArrayList<>());
         when(mCityRepository.getCityTranslate(city)).thenReturn(Observable.just(city));
@@ -173,7 +173,7 @@ public class CurrentWeatherForecastInteractorTest {
     }
 
     @Test
-    public void getCurrentWeather_when_weatherRepository_return_error_Test() {
+    public void testInteractorWhenRepositoryReturnError() {
         City city = createCity();
         when(mCityRepository.getCityTranslate(city)).thenReturn(Observable.just(city));
         when(mRepositoryOfWeather.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.error(new Throwable("empty")));

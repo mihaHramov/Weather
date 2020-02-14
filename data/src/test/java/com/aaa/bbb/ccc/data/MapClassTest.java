@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class MapClassTest {
     @Test
-    public void ZipCityAndTranslateInfo_isCorrect() {
+    public void testZipCityAndTranslateInfo() {
         City city = new City();
         ZipCityAndTranslateInfo map = new ZipCityAndTranslateInfo();
         City result = map.call(new Pair<>("name", "ru"), city);
@@ -22,7 +22,7 @@ public class MapClassTest {
     }
 
     @Test
-    public void TranslateLanguageMap_isCorrect() {
+    public void testTranslateLanguageMap() {
         String lang = "ru";
         String baseLang = "en";
         TranslateLanguageMap map = new TranslateLanguageMap(baseLang);
@@ -30,7 +30,7 @@ public class MapClassTest {
         Assert.assertEquals(baseLang + "-" + lang, result);
     }
     @Test
-    public void FromCityApiToCity_isCorrect() {
+    public void testFromCityApiToCity() {
         com.aaa.bbb.ccc.data.model.api.weather.City city = new com.aaa.bbb.ccc.data.model.api.weather.City();
         city.setId(0);
         city.setName("London");

@@ -48,7 +48,9 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
     public Observable<SynopticForecast> getCurrentWeather() {
         Observable<Location> locationObservable = mPermissionsRepository
                 .getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                .flatMap(isGranted -> isGranted ? mLocationRepository.getCurrentLocation() : mSettingsRepository.getDefaultLocation());
+                .flatMap(isGranted -> Boolean.TRUE.equals(isGranted)
+                        ? mLocationRepository.getCurrentLocation()
+                        : mSettingsRepository.getDefaultLocation());
 
         Observable<String> languageObservable = mSettingsRepository.getLanguage();
         Observable<String> unitsObservable = mSettingsRepository.getUnits();

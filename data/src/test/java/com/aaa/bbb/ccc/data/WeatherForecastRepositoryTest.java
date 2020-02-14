@@ -55,7 +55,7 @@ public class WeatherForecastRepositoryTest {
 
 
     @Test
-    public void get_weather_from_db_isCorrect() {
+    public void testGetWeatherFromDbWhenServerReturnError() {
         when(weatherApi.getForecast(lat, lon, lang, metric)).thenReturn(Observable.error(new Throwable("error api")));
         repository.getWeatherForecast(lat, lon, lang, metric)
                 .subscribe(testSubscriber);
@@ -65,7 +65,7 @@ public class WeatherForecastRepositoryTest {
     }
 
     @Test
-    public void save_weather_forecast_to_db_isCorrect() {
+    public void testSaveWeatherToDbWhenAllRight() {
         Mockito.when(cashRepository.getWeatherForecast(lat, lon, lang, metric)).thenReturn(Observable.just(getWeatherForecast()));
         repository.getWeatherForecast(lat, lon, lang, metric)
                 .subscribe(testSubscriber);
