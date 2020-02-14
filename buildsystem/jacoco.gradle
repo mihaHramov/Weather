@@ -28,8 +28,10 @@ def configureJacoco = { project ->
                 '**/*Fragment.*',
                 '**/*Activity.*',
                 '**/*Api.*',
-                '**/injection/**/*.class',
+                '**/*App.*',
+                '**/di/**/*.class',
                 '**/ui/**/*.class',
+                '**/di/*',
         ]
 
         def javaClasses = fileTree(dir: "${project.buildDir}/intermediates/javac", excludes: excludes)
