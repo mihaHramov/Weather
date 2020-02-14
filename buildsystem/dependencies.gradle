@@ -26,9 +26,9 @@ ext {
     daggerAnnotationProcessor = "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     //test
-    mockito =  'org.mockito:mockito-core:2.19.0'
-    junit =  'junit:junit:4.12'
-    mockwebserver =  "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
+    mockito = 'org.mockito:mockito-core:2.19.0'
+    junit = 'junit:junit:4.12'
+    mockwebserver = "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
     junitTestImplementation = 'androidx.test.ext:junit:1.1.1'
     espressoTestImplementation = 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -37,16 +37,16 @@ ext {
     firebase = 'com.google.firebase:firebase-analytics:17.2.2'
     crashlytics = 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     //db
-    room =  "android.arch.persistence.room:runtime:1.1.1"
-    roomAnnotationProcessor =  "android.arch.persistence.room:compiler:1.1.1"
+    room = "android.arch.persistence.room:runtime:1.1.1"
+    roomAnnotationProcessor = "android.arch.persistence.room:compiler:1.1.1"
 
 
     //network
     okhttp = "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-    interceptor  = "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-    retrofit =  "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    interceptor = "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    retrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     converterGson = "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-    adapterRxjava =  "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+    adapterRxjava = "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
     gson = "com.google.code.gson:gson:${gsonVersion}"
     picasso = 'com.squareup.picasso:picasso:2.71828'
     ciceronelib = "ru.terrakok.cicerone:cicerone:${ciceroneVersion}"
@@ -56,9 +56,14 @@ ext {
     constraintlayout = "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}"
     material = "com.google.android.material:material:${materialVersion}"
     espressoVersion = "3.2.0"
-   androidXTest =  "androidx.test.ext:junit:1.1.1"
+    androidXTest = "androidx.test.ext:junit:1.1.1"
     espressoCore = "androidx.test.espresso:espresso-core:${espressoVersion}"
+
+    reactiveLocation = 'pl.charmas.android:android-reactive-location:1.0@aar'
+
     app = [
+            [configuration: "implementation", dependency: reactiveLocation],
+
             [configuration: "implementation", dependency: material],
             [configuration: "implementation", dependency: constraintlayout],
             [configuration: "implementation", dependency: appCompat],

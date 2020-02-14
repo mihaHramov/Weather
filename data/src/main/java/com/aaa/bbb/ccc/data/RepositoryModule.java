@@ -50,8 +50,8 @@ public class RepositoryModule {
     }
 
     @Provides
-    ILocationRepository provideLocationRepository() {
-        return new LocationRepository();
+    ILocationRepository provideLocationRepository(Context context) {
+        return new LocationRepository(context);
     }
 
     @Provides
