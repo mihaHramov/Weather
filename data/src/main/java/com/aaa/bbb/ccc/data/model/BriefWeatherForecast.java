@@ -2,6 +2,7 @@ package com.aaa.bbb.ccc.data.model;
 
 
 import com.aaa.bbb.ccc.data.model.api.weather.Wind;
+import com.aaa.bbb.ccc.model.WeatherType;
 
 public class BriefWeatherForecast {
     private Double snow;

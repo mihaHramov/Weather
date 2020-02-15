@@ -1,5 +1,6 @@
 package com.aaa.bbb.ccc.domain.model;
 
+import com.aaa.bbb.ccc.model.WeatherType;
 import java.io.Serializable;
 import java.util.Calendar;
 

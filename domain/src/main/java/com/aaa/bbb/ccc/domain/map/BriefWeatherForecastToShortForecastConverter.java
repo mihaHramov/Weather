@@ -3,7 +3,7 @@ package com.aaa.bbb.ccc.domain.map;
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
 import com.aaa.bbb.ccc.data.model.Temperature;
 import com.aaa.bbb.ccc.domain.model.ShortForecast;
-import com.aaa.bbb.ccc.domain.model.WeatherType;
+import com.aaa.bbb.ccc.model.WeatherType;
 import com.aaa.bbb.ccc.domain.model.Wind;
 import com.aaa.bbb.ccc.utils.DateConverter;
 import com.aaa.bbb.ccc.domain.utils.WindTypeConverter;

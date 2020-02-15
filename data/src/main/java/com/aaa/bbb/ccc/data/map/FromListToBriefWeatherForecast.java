@@ -3,7 +3,7 @@ package com.aaa.bbb.ccc.data.map;
 
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
 import com.aaa.bbb.ccc.data.model.Temperature;
-import com.aaa.bbb.ccc.data.model.WeatherType;
+import com.aaa.bbb.ccc.model.WeatherType;
 import com.aaa.bbb.ccc.data.model.api.weather.List;
 import com.aaa.bbb.ccc.data.model.api.weather.Weather;
 

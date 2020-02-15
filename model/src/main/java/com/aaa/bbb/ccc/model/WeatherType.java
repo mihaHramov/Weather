@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.model;
+package com.aaa.bbb.ccc.model;
 
 import java.io.Serializable;
 
