@@ -74,8 +74,10 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
 
         void bind(ShortForecast forecast) {
             mDate.setText(forecast.getDate());
-            minTemperature.setText(forecast.getTemperature().getMax());
-            maxTemperature.setText(forecast.getTemperature().getMax());
+            String min = Double.toString(forecast.getTemperature().getMin());
+            String max = Double.toString(forecast.getTemperature().getMax());
+            minTemperature.setText(min);
+            maxTemperature.setText(max);
             pressure.setText(forecast.getPressure());
             showPrecipitation(rain, rainCell, forecast.getRain());
             showPrecipitation(snow, snowCell, forecast.getSnow());

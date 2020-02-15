@@ -1,5 +1,7 @@
 package com.aaa.bbb.ccc.weather.model;
 
+import com.aaa.bbb.ccc.model.Temperature;
+
 import java.io.Serializable;
 
 public class ShortForecast implements Serializable {

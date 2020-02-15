@@ -2,7 +2,7 @@ package com.aaa.bbb.ccc.data.map;
 
 
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
-import com.aaa.bbb.ccc.data.model.Temperature;
+import com.aaa.bbb.ccc.model.Temperature;
 import com.aaa.bbb.ccc.model.WeatherType;
 import com.aaa.bbb.ccc.data.model.api.weather.List;
 import com.aaa.bbb.ccc.data.model.api.weather.Weather;
@@ -31,7 +31,7 @@ public class FromListToBriefWeatherForecast implements Func1<List, BriefWeatherF
 
         briefWeatherForecast.setHumidity(listWeatherItem.getMain().getHumidity());
         briefWeatherForecast.setPressure(listWeatherItem.getMain().getPressure());
-        Temperature temperature = new Temperature(listWeatherItem.getMain().getTempMin(), listWeatherItem.getMain().getTempMax(), listWeatherItem.getMain().getTemp());
+        Temperature temperature = new Temperature(listWeatherItem.getMain().getTempMax(),listWeatherItem.getMain().getTempMin());
         briefWeatherForecast.setTemperature(temperature);
         Weather weather = listWeatherItem.getWeather().get(0);
         String weatherTypeIconUrlTemplate = "http://openweathermap.org/img/wn/%1$s@2x.png";

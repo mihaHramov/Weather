@@ -76,8 +76,10 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
         void bind(ShortForecast dailyForecast) {
             Picasso.get().load(dailyForecast.getIcon()).into(mIcon);
             mWeatherType.setText(dailyForecast.getDescription());
-            mMaxTemperature.setText(dailyForecast.getTemperature().getMax());
-            mMinTemperature.setText(dailyForecast.getTemperature().getMin());
+            String max = Double.toString(dailyForecast.getTemperature().getMax());
+            String min = Double.toString(dailyForecast.getTemperature().getMin());
+            mMaxTemperature.setText(max);
+            mMinTemperature.setText(min);
             mDate.setText(dailyForecast.getDate());
         }
     }

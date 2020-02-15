@@ -3,7 +3,6 @@ package com.aaa.bbb.ccc.weather.map;
 import com.aaa.bbb.ccc.domain.model.Place;
 import com.aaa.bbb.ccc.domain.model.SynopticForecast;
 import com.aaa.bbb.ccc.weather.model.ShortForecast;
-import com.aaa.bbb.ccc.weather.model.Temperature;
 import com.aaa.bbb.ccc.weather.model.Wind;
 
 import java.util.ArrayList;
@@ -64,11 +63,7 @@ public class SynopticMapper implements Func1<SynopticForecast, Observable<com.aa
             shortForecastUi.setWind(wind);
         }
         if (shortForecast.getTemperature() != null) {
-            com.aaa.bbb.ccc.domain.model.Temperature temperature = shortForecast.getTemperature();
-            Temperature temperatureUi = new Temperature();
-            temperatureUi.setMax(temperature.getMax().toString());
-            temperatureUi.setMin(temperature.getMin().toString());
-            shortForecastUi.setTemperature(temperatureUi);
+            shortForecastUi.setTemperature(shortForecast.getTemperature());
         }
 
         return shortForecastUi;

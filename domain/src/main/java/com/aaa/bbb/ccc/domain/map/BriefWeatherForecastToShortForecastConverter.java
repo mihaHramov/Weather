@@ -1,7 +1,7 @@
 package com.aaa.bbb.ccc.domain.map;
 
 import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
-import com.aaa.bbb.ccc.data.model.Temperature;
+import com.aaa.bbb.ccc.model.Temperature;
 import com.aaa.bbb.ccc.domain.model.ShortForecast;
 import com.aaa.bbb.ccc.model.WeatherType;
 import com.aaa.bbb.ccc.domain.model.Wind;
@@ -29,7 +29,7 @@ public class BriefWeatherForecastToShortForecastConverter implements Func1<Brief
 
         //temperature
         Temperature temperatureOld = briefWeatherForecast.getTemperature();
-        com.aaa.bbb.ccc.domain.model.Temperature temperature = new com.aaa.bbb.ccc.domain.model.Temperature(temperatureOld.getMax(), temperatureOld.getMin());
+        com.aaa.bbb.ccc.model.Temperature temperature = new com.aaa.bbb.ccc.model.Temperature(temperatureOld.getMax(), temperatureOld.getMin());
         shortForecast.setTemperature(temperature);
 
         Wind wind = new Wind(WindTypeConverter.convert(briefWeatherForecast.getWind()), briefWeatherForecast.getWind().getSpeed());
