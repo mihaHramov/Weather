@@ -29,4 +29,5 @@ dependencies {
         add(item.configuration, item.dependency, item.options)
     }
     implementation project(path: ':utils')
+    implementation project(path: ':model')
 }
