@@ -1,12 +1,13 @@
-package com.aaa.bbb.ccc.domain.utils;
+package com.aaa.bbb.ccc.domain.map;
 
-import com.aaa.bbb.ccc.domain.model.WindType;
+import com.aaa.bbb.ccc.model.WindType;
 
-public class WindTypeConverter {
+class WindTypeConverter {
     private WindTypeConverter() {
         throw new IllegalStateException("Utility class");
     }
-    public static WindType convert(com.aaa.bbb.ccc.data.model.api.weather.Wind wind) {
+
+    static WindType convert(com.aaa.bbb.ccc.data.model.api.weather.Wind wind) {
         WindType w;
         Integer deg = wind.getDeg();
         if (deg == 360 || deg == 0) {
