@@ -10,10 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
-import com.aaa.bbb.ccc.weather.model.ShortForecast;
+import com.aaa.bbb.ccc.model.ShortForecast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdapter.ShortForecastViewHolder> {
@@ -74,13 +75,13 @@ public class ShortForecastAdapter extends RecyclerView.Adapter<ShortForecastAdap
         }
 
         void bind(ShortForecast dailyForecast) {
-            Picasso.get().load(dailyForecast.getIcon()).into(mIcon);
-            mWeatherType.setText(dailyForecast.getDescription());
+            Picasso.get().load(dailyForecast.getWeatherType().getIcon()).into(mIcon);
+            mWeatherType.setText(dailyForecast.getWeatherType().getDescription());
             String max = Double.toString(dailyForecast.getTemperature().getMax());
             String min = Double.toString(dailyForecast.getTemperature().getMin());
             mMaxTemperature.setText(max);
             mMinTemperature.setText(min);
-            mDate.setText(dailyForecast.getDate());
+            mDate.setText(dailyForecast.getDate().get(Calendar.DAY_OF_WEEK));
         }
     }
 }

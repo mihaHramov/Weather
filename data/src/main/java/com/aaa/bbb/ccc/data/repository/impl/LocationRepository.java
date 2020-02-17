@@ -2,7 +2,7 @@ package com.aaa.bbb.ccc.data.repository.impl;
 
 import android.content.Context;
 
-import com.aaa.bbb.ccc.data.model.Location;
+import com.aaa.bbb.ccc.model.Location;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider;

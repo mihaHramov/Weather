@@ -2,9 +2,9 @@ package com.aaa.bbb.ccc.domain;
 
 import android.Manifest;
 
-import com.aaa.bbb.ccc.data.model.City;
-import com.aaa.bbb.ccc.data.model.Location;
-import com.aaa.bbb.ccc.data.model.WeatherForecast;
+import com.aaa.bbb.ccc.model.Place;
+import com.aaa.bbb.ccc.model.Location;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.data.model.api.weather.Coord;
 import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
@@ -18,7 +18,6 @@ import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.domain.interactor.CurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
-import com.aaa.bbb.ccc.domain.model.SynopticForecast;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,7 +37,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class CurrentWeatherForecastInteractorTest {
+public class CurrentSynopticForecastInteractorTest {
     private ISchedulerRepository mSchedulerRepository;
     private IPermissionsRepository mPermissionsRepository;
     private IWeatherForecastRepository mRepositoryOfWeather;
@@ -57,7 +56,7 @@ public class CurrentWeatherForecastInteractorTest {
 
     private ICurrentWeatherForecastInteractor interactor;
     private String enName = "London";
-    private TestSubscriber<SynopticForecast> testSubscriber;
+    private TestSubscriber<com.aaa.bbb.ccc.model.SynopticForecast> testSubscriber;
 
     @Before
     public void setUp() {
@@ -84,28 +83,26 @@ public class CurrentWeatherForecastInteractorTest {
 
         //mock mRepositoryOfWeather
         mRepositoryOfWeather = mock(IWeatherForecastRepository.class);
-        City city = createCity();
+        Place place = createCity();
 
-        WeatherForecast weatherForecast = new WeatherForecast(city, new ArrayList<>());
-        when(mRepositoryOfWeather.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(weatherForecast));
+        SynopticForecast synopticForecast = new SynopticForecast(place, new ArrayList<>());
+        when(mRepositoryOfWeather.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(synopticForecast));
         //mock mCityRepository
         mCityRepository = mock(ICityRepository.class);
-        City cityResult = createCity();
-        cityResult.setName(translateName);
-        when(mCityRepository.getCityTranslate(any(City.class))).thenReturn(Observable.just(cityResult));
+        Place placeResult = createCity();
+        placeResult.setName(translateName);
+        when(mCityRepository.getCityTranslate(any(Place.class))).thenReturn(Observable.just(placeResult));
         weatherApi = Mockito.mock(OpenWeatherMapApi.class);
         cashRepository = Mockito.mock(ICashRepository.class);
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather, mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
     }
 
-    private City createCity() {
-        City city = new City();
-        city.setName(enName);
-        city.setId(20);
-        city.setSunrise(1020);
-        city.setSunset(2030);
-        city.setCountry("uk");
-        return city;
+    private Place createCity() {
+        Place place = new Place();
+        place.setName(enName);
+        place.setId(20);
+        place.setCountry("uk");
+        return place;
     }
 
     @Test
@@ -118,7 +115,7 @@ public class CurrentWeatherForecastInteractorTest {
         verify(mSettingsRepository).getUnits();
         verify(mSettingsRepository, never()).getDefaultLocation();
         verify(mLocationRepository).getCurrentLocation();
-        verify(mCityRepository).getCityTranslate(any(City.class));
+        verify(mCityRepository).getCityTranslate(any(Place.class));
         verify(mRepositoryOfWeather).getWeatherForecast(lat, lon, defaultLang, defaultMetric);
     }
 
@@ -134,7 +131,7 @@ public class CurrentWeatherForecastInteractorTest {
         verify(mSettingsRepository).getUnits();
         verify(mSettingsRepository).getDefaultLocation();
         verify(mLocationRepository, never()).getCurrentLocation();
-        verify(mCityRepository).getCityTranslate(any(City.class));
+        verify(mCityRepository).getCityTranslate(any(Place.class));
         verify(mRepositoryOfWeather).getWeatherForecast(lat, lon, defaultLang, defaultMetric);
     }
 
@@ -142,7 +139,7 @@ public class CurrentWeatherForecastInteractorTest {
     public void getCurrentWeatherIntegrationTest() {
         mRepositoryOfWeather = new WeatherForecastRepository(weatherApi, cashRepository);
         when(weatherApi.getForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(createWeatherResponse()));
-        doNothing().when(cashRepository).saveWeatherForecast(any(WeatherForecast.class));
+        doNothing().when(cashRepository).saveWeatherForecast(any(SynopticForecast.class));
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather,
                 mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
 
@@ -150,18 +147,18 @@ public class CurrentWeatherForecastInteractorTest {
         testSubscriber.assertCompleted();
         testSubscriber.assertNoErrors();
         Assert.assertEquals(translateName, testSubscriber.getOnNextEvents().get(0).getPlace().getName());
-        verify(mCityRepository).getCityTranslate(any(City.class));
+        verify(mCityRepository).getCityTranslate(any(Place.class));
     }
 
     @Test
     public void testGetCurrentWeatherWhenServerReturnError() {
-        City city = createCity();
-        WeatherForecast weatherForecast = new WeatherForecast(city, new ArrayList<>());
-        when(mCityRepository.getCityTranslate(city)).thenReturn(Observable.just(city));
-        when(cashRepository.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(weatherForecast));
+        Place place = createCity();
+        SynopticForecast synopticForecast = new SynopticForecast(place, new ArrayList<>());
+        when(mCityRepository.getCityTranslate(place)).thenReturn(Observable.just(place));
+        when(cashRepository.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(synopticForecast));
         mRepositoryOfWeather = new WeatherForecastRepository(weatherApi, cashRepository);
         when(weatherApi.getForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.error(new Throwable("network error")));
-        doNothing().when(cashRepository).saveWeatherForecast(any(WeatherForecast.class));
+        doNothing().when(cashRepository).saveWeatherForecast(any(SynopticForecast.class));
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather,
                 mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
 
@@ -174,10 +171,10 @@ public class CurrentWeatherForecastInteractorTest {
 
     @Test
     public void testInteractorWhenRepositoryReturnError() {
-        City city = createCity();
-        when(mCityRepository.getCityTranslate(city)).thenReturn(Observable.just(city));
+        Place place = createCity();
+        when(mCityRepository.getCityTranslate(place)).thenReturn(Observable.just(place));
         when(mRepositoryOfWeather.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.error(new Throwable("empty")));
-        doNothing().when(cashRepository).saveWeatherForecast(any(WeatherForecast.class));
+        doNothing().when(cashRepository).saveWeatherForecast(any(SynopticForecast.class));
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather,
                 mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
 

@@ -1,6 +1,7 @@
 package com.aaa.bbb.ccc.data;
 
-import com.aaa.bbb.ccc.data.model.City;
+import com.aaa.bbb.ccc.model.Location;
+import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.data.model.api.translate.TranslateResponse;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.impl.CityRepository;
@@ -16,12 +17,13 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class CityRepositoryTest {
-    private City city;
+public class PlaceRepositoryTest {
+    private Place place;
     private ICashRepository cashRepository;
     private TranslateApi translateApi;
     private CityRepository cityRepository;
@@ -29,21 +31,21 @@ public class CityRepositoryTest {
     private String lang = "ru";
     private String translateName = "Лондон";
     private String name = "London";
-    private TestSubscriber<City> testSubscriber;
+    private TestSubscriber<Place> testSubscriber;
 
     @Before
     public void setUp() {
-        city = initCity();
+        place = initCity();
         testSubscriber = new TestSubscriber<>();
         cashRepository = mock(ICashRepository.class);
         translateApi = mock(TranslateApi.class);
-        City cityFromDb = initCity();
-        cityFromDb.setName(translateName);
+        Place placeFromDb = initCity();
+        placeFromDb.setName(translateName);
         TranslateResponse translateResponse = new TranslateResponse();
         translateResponse.setCode(200);
         translateResponse.setLang(lang);
         translateResponse.setText(Collections.singletonList(translateName));
-        when(cashRepository.getCity(id, lang)).thenReturn(Observable.just(cityFromDb));
+        when(cashRepository.getCity(id, lang)).thenReturn(Observable.just(placeFromDb));
         when(translateApi.getTranslate(name, lang)).thenReturn(Observable.just(translateResponse));
         cityRepository = new CityRepository(cashRepository, translateApi);
     }
@@ -52,62 +54,58 @@ public class CityRepositoryTest {
     @Test
     public void getCityTranslateWhenAllFine() {
         cityRepository
-                .getCityTranslate(city)
+                .getCityTranslate(place)
                 .subscribe(testSubscriber);
         testSubscriber.assertCompleted();
         testSubscriber.assertNoErrors();
-        Assert.assertEquals(translateName,testSubscriber.getOnNextEvents().get(0).getName());
+        Assert.assertEquals(translateName, testSubscriber.getOnNextEvents().get(0).getName());
     }
 
     @Test
     public void getCityTranslateWhenServerGetError() {
         when(translateApi.getTranslate(name, lang)).thenReturn(Observable.error(new Throwable("network error")));
         cityRepository
-                .getCityTranslate(city)
+                .getCityTranslate(place)
                 .subscribe(testSubscriber);
         testSubscriber.assertCompleted();
         testSubscriber.assertNoErrors();
-        Assert.assertEquals(translateName,testSubscriber.getOnNextEvents().get(0).getName());
+        Assert.assertEquals(translateName, testSubscriber.getOnNextEvents().get(0).getName());
         verify(translateApi).getTranslate(anyString(), anyString());
-        verify(cashRepository).getCity(id,lang);
+        verify(cashRepository).getCity(id, lang);
     }
 
 
     @Test
     public void getCityTranslateWhenServerAndDbGetError() {
         when(translateApi.getTranslate(name, lang)).thenReturn(Observable.error(new Throwable("network error")));
-        when(cashRepository.getCity(id,lang)).thenReturn(Observable.error(new Throwable("db error")));
-        City cityDefault = new City();
-        cityDefault.setCountry(city.getCountry());
-        cityDefault.setId(city.getId());
-        cityDefault.setLangName(city.getLangName());
-        cityDefault.setLat(city.getLat());
-        cityDefault.setLon(city.getLon());
-        cityDefault.setSunrise(city.getSunrise());
-        cityDefault.setSunset(city.getSunset());
-        cityDefault.setName(name);
+        when(cashRepository.getCity(id, lang)).thenReturn(Observable.error(new Throwable("db error")));
+        Place placeDefault = new Place();
+        placeDefault.setCountry(place.getCountry());
+        placeDefault.setId(place.getId());
+        placeDefault.setLangName(place.getLangName());
+        Location location = new Location("20.0","20.0");
+        placeDefault.setLocation(location);
+        placeDefault.setName(name);
 
 
         cityRepository
-                .getCityTranslate(cityDefault)
+                .getCityTranslate(placeDefault)
                 .subscribe(testSubscriber);
         testSubscriber.assertCompleted();
         testSubscriber.assertNoErrors();
-        Assert.assertEquals(name,testSubscriber.getOnNextEvents().get(0).getName());
-        verify(translateApi).getTranslate(anyString(),anyString());
-        verify(cashRepository).getCity(id,lang);
+        Assert.assertEquals(name, testSubscriber.getOnNextEvents().get(0).getName());
+        verify(translateApi).getTranslate(anyString(), anyString());
+        verify(cashRepository).getCity(id, lang);
     }
 
-    private City initCity() {
-        city = new City();
-        city.setName(name);
-        city.setLangName(lang);
-        city.setCountry("uk");
-        city.setId(id);
-        city.setLon(20.0);
-        city.setLat(20.0);
-        city.setSunset(1030);
-        city.setSunrise(203040);
-        return city;
+    private Place initCity() {
+        place = new Place();
+        place.setName(name);
+        place.setLangName(lang);
+        place.setCountry("uk");
+        place.setId(id);
+        Location location = new Location("20.0","20.0");
+        place.setLocation(location);
+        return place;
     }
 }

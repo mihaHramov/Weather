@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
-import com.aaa.bbb.ccc.weather.model.ShortForecast;
+import com.aaa.bbb.ccc.model.ShortForecast;
 import com.aaa.bbb.ccc.weather.presentation.adapter.ShortForecastAdapter;
 
 import java.util.List;

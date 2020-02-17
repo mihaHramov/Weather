@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.aaa.bbb.ccc.weather.model.SynopticForecast;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.presentation.forecast.details.fragment.DetailsWeatherForecastFragment;
 

@@ -28,6 +28,5 @@ dependencies {
     rootProject.instrumentationTestsDependencies.each { item ->
         add(item.configuration, item.dependency, item.options)
     }
-    implementation project(path: ':utils')
     implementation project(path: ':model')
 }

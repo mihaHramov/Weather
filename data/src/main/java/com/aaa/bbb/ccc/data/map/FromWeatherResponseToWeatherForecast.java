@@ -1,18 +1,18 @@
 package com.aaa.bbb.ccc.data.map;
 
-import com.aaa.bbb.ccc.data.model.City;
-import com.aaa.bbb.ccc.data.model.DetailedWeatherForecast;
-import com.aaa.bbb.ccc.data.model.WeatherForecast;
+import com.aaa.bbb.ccc.model.Place;
+import com.aaa.bbb.ccc.model.DailyForecast;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 
 import java.util.List;
 
 import rx.functions.Func2;
 
-public class FromWeatherResponseToWeatherForecast implements Func2<WeatherResponse, List<DetailedWeatherForecast>, WeatherForecast> {
+public class FromWeatherResponseToWeatherForecast implements Func2<WeatherResponse, List<DailyForecast>, SynopticForecast> {
     @Override
-    public WeatherForecast call(WeatherResponse weatherResponse, List<DetailedWeatherForecast> detailedWeatherForecasts) {
-        City city = new FromCityApiToCity().call(weatherResponse.getCity());
-        return new WeatherForecast(city,detailedWeatherForecasts);
+    public SynopticForecast call(WeatherResponse weatherResponse, List<DailyForecast> dailyForecasts) {
+        Place place = new FromCityApiToPlace().call(weatherResponse.getCity());
+        return new SynopticForecast(place, dailyForecasts);
     }
 }

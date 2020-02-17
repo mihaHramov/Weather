@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.aaa.bbb.ccc.data.db.entity.City;
+import com.aaa.bbb.ccc.data.model.entity.City;
 
 @Dao
 public interface CityDao {

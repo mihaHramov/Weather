@@ -2,7 +2,7 @@ package com.aaa.bbb.ccc.weather.presentation.forecast.details.fragment;
 
 import android.os.Bundle;
 
-import com.aaa.bbb.ccc.weather.model.DailyForecast;
+import com.aaa.bbb.ccc.model.DailyForecast;
 
 import moxy.InjectViewState;
 import moxy.MvpPresenter;

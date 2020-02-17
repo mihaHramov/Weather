@@ -2,10 +2,10 @@ package com.aaa.bbb.ccc.data;
 
 import androidx.core.util.Pair;
 
-import com.aaa.bbb.ccc.data.map.FromCityApiToCity;
+import com.aaa.bbb.ccc.data.map.FromCityApiToPlace;
 import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
 import com.aaa.bbb.ccc.data.map.ZipCityAndTranslateInfo;
-import com.aaa.bbb.ccc.data.model.City;
+import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.data.model.api.weather.Coord;
 
 import org.junit.Assert;
@@ -15,9 +15,9 @@ import org.junit.Test;
 public class MapClassTest {
     @Test
     public void testZipCityAndTranslateInfo() {
-        City city = new City();
+        Place place = new Place();
         ZipCityAndTranslateInfo map = new ZipCityAndTranslateInfo();
-        City result = map.call(new Pair<>("name", "ru"), city);
+        Place result = map.call(new Pair<>("name", "ru"), place);
         Assert.assertEquals("name", result.getName());
     }
 
@@ -43,9 +43,8 @@ public class MapClassTest {
         coord.setLat(10.3);
         coord.setLon(20.1);
         city.setCoord(coord);
-        FromCityApiToCity map = new FromCityApiToCity();
-        City result = map.call(city);
-        Assert.assertEquals(city.getCoord().getLat(), result.getLat());
-        Assert.assertEquals(city.getCoord().getLon(), result.getLon());
+        FromCityApiToPlace map = new FromCityApiToPlace();
+        Place result = map.call(city);
+        Assert.assertEquals(city.getCountry(), result.getCountry());
     }
 }

@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 
-import com.aaa.bbb.ccc.data.db.entity.Forecast;
+import com.aaa.bbb.ccc.data.model.entity.Forecast;
 
 @Dao
 public interface ForecastDao {

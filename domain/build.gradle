@@ -31,6 +31,5 @@ dependencies {
 
     implementation project(path: ':data')
     implementation project(path: ':model')
-    implementation project(path: ':utils')
 
 }

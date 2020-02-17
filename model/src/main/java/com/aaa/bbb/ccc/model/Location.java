@@ -1,7 +1,10 @@
-package com.aaa.bbb.ccc.data.model;
+package com.aaa.bbb.ccc.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private String lat;
+    private String lot;
 
     public String getLat() {
         return lat;
@@ -16,7 +19,7 @@ public class Location {
         this.lot = lot;
     }
 
-    private String lot;
+
 
 
 }

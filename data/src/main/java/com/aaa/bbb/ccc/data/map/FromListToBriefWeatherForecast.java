@@ -1,43 +1,48 @@
 package com.aaa.bbb.ccc.data.map;
 
 
-import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
+import com.aaa.bbb.ccc.model.ShortForecast;
 import com.aaa.bbb.ccc.model.Temperature;
 import com.aaa.bbb.ccc.model.WeatherType;
 import com.aaa.bbb.ccc.data.model.api.weather.List;
 import com.aaa.bbb.ccc.data.model.api.weather.Weather;
+import com.aaa.bbb.ccc.model.Wind;
+import com.aaa.bbb.ccc.model.WindType;
+import com.aaa.bbb.ccc.data.utils.DateConverter;
 
 import rx.functions.Func1;
 
 
-public class FromListToBriefWeatherForecast implements Func1<List, BriefWeatherForecast> {
+public class FromListToBriefWeatherForecast implements Func1<List, ShortForecast> {
 
     @Override
-    public BriefWeatherForecast call(List listWeatherItem) {
-        BriefWeatherForecast briefWeatherForecast = new BriefWeatherForecast();
-        briefWeatherForecast.setDate(listWeatherItem.getDt());
-        briefWeatherForecast.setWind(listWeatherItem.getWind());
+    public ShortForecast call(List listWeatherItem) {
+        ShortForecast shortForecast = new ShortForecast();
+        shortForecast.setDate(DateConverter.getDateByInteger(listWeatherItem.getDt()));
+        WindType windType = WindTypeConverter.convert(listWeatherItem.getWind());
+        Wind wind = new Wind(windType,listWeatherItem.getWind().getSpeed());
+        shortForecast.setWind(wind);
 
         if (listWeatherItem.getRain() != null) {
-            briefWeatherForecast.setRain(listWeatherItem.getRain().get3h());
+            shortForecast.setRain(listWeatherItem.getRain().get3h());
         }
         if (listWeatherItem.getSnow() != null) {
-            briefWeatherForecast.setSnow(listWeatherItem.getSnow().get3h());
+            shortForecast.setSnow(listWeatherItem.getSnow().get3h());
         }
         if (listWeatherItem.getClouds() != null && listWeatherItem.getClouds().getAll() != null) {
-            briefWeatherForecast.setClouds(listWeatherItem.getClouds().getAll());
+            shortForecast.setClouds(listWeatherItem.getClouds().getAll());
         }
 
 
-        briefWeatherForecast.setHumidity(listWeatherItem.getMain().getHumidity());
-        briefWeatherForecast.setPressure(listWeatherItem.getMain().getPressure());
+        shortForecast.setHumidity(listWeatherItem.getMain().getHumidity());
+        shortForecast.setPressure(listWeatherItem.getMain().getPressure());
         Temperature temperature = new Temperature(listWeatherItem.getMain().getTempMax(),listWeatherItem.getMain().getTempMin());
-        briefWeatherForecast.setTemperature(temperature);
+        shortForecast.setTemperature(temperature);
         Weather weather = listWeatherItem.getWeather().get(0);
         String weatherTypeIconUrlTemplate = "http://openweathermap.org/img/wn/%1$s@2x.png";
         String weatherIconUrl = String.format(weatherTypeIconUrlTemplate, weather.getIcon());
         WeatherType weatherType = new WeatherType(weather.getDescription(), weatherIconUrl);
-        briefWeatherForecast.setWeatherType(weatherType);
-        return briefWeatherForecast;
+        shortForecast.setWeatherType(weatherType);
+        return shortForecast;
     }
 }

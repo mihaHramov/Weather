@@ -1,6 +1,6 @@
 package com.aaa.bbb.ccc.data.repository.intrf;
 
-import com.aaa.bbb.ccc.data.model.Location;
+import com.aaa.bbb.ccc.model.Location;
 
 import rx.Observable;
 

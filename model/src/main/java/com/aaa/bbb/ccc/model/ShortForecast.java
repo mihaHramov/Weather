@@ -1,8 +1,5 @@
-package com.aaa.bbb.ccc.domain.model;
+package com.aaa.bbb.ccc.model;
 
-import com.aaa.bbb.ccc.model.WeatherType;
-import com.aaa.bbb.ccc.model.Temperature;
-import com.aaa.bbb.ccc.model.Wind;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -90,12 +87,4 @@ public class ShortForecast implements Serializable {
         this.pressure = pressure;
     }
 
-    public Double getPrecipitation() {
-        if (snow > 0)
-            return snow;
-        else if (rain > 0) {
-            return rain;
-        }
-        return 0.0;
-    }
 }

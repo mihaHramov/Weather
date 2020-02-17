@@ -10,10 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
-import com.aaa.bbb.ccc.weather.model.ShortForecast;
+import com.aaa.bbb.ccc.model.ShortForecast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAdapter.DetailForecastViewHolder> {
@@ -73,18 +74,18 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
         }
 
         void bind(ShortForecast forecast) {
-            mDate.setText(forecast.getDate());
+            mDate.setText(forecast.getDate().get(Calendar.DAY_OF_WEEK));
             String min = Double.toString(forecast.getTemperature().getMin());
             String max = Double.toString(forecast.getTemperature().getMax());
             minTemperature.setText(min);
             maxTemperature.setText(max);
             pressure.setText(forecast.getPressure());
-            showPrecipitation(rain, rainCell, forecast.getRain());
-            showPrecipitation(snow, snowCell, forecast.getSnow());
+            showPrecipitation(rain, rainCell, forecast.getRain().toString());
+            showPrecipitation(snow, snowCell, forecast.getSnow().toString());
             clouds.setText(forecast.getClouds());
-            Picasso.get().load(forecast.getIcon()).into(icon);
-            weatherType.setText(forecast.getDescription());
-            wind.setText(forecast.getDescription());
+            Picasso.get().load(forecast.getWeatherType().getIcon()).into(icon);
+            weatherType.setText(forecast.getWeatherType().getDescription());
+            wind.setText(forecast.getWind().toString());
         }
 
         private void showPrecipitation(TextView textView, View view, String val) {

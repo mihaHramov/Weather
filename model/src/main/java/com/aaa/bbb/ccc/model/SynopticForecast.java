@@ -1,25 +1,21 @@
-package com.aaa.bbb.ccc.weather.model;
+package com.aaa.bbb.ccc.model;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class SynopticForecast implements Serializable {
-    private String place;
+    private Place  place;
     private List<DailyForecast> dailyForecast;
 
-    public SynopticForecast(){}
-    public SynopticForecast(String place, List<DailyForecast> dailyForecast) {
+    public SynopticForecast(Place place, List<DailyForecast> dailyForecast) {
         this.place = place;
         this.dailyForecast = dailyForecast;
     }
 
-    public String getPlace() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
 
     public List<DailyForecast> getDailyForecast() {
         return dailyForecast;
@@ -29,4 +25,7 @@ public class SynopticForecast implements Serializable {
         this.dailyForecast = dailyForecast;
     }
 
+    public void setPlace(Place city) {
+        this.place = city;
+    }
 }

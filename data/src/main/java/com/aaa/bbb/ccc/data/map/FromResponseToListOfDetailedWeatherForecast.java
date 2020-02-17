@@ -1,24 +1,29 @@
 package com.aaa.bbb.ccc.data.map;
 
-import com.aaa.bbb.ccc.data.model.BriefWeatherForecast;
-import com.aaa.bbb.ccc.data.model.DetailedWeatherForecast;
+import com.aaa.bbb.ccc.model.DailyForecast;
 import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
+import com.aaa.bbb.ccc.data.utils.DateConverter;
 
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import rx.Observable;
 import rx.functions.Func1;
 
-public class FromResponseToListOfDetailedWeatherForecast implements Func1<WeatherResponse, Observable<List<DetailedWeatherForecast>>> {
+public class FromResponseToListOfDetailedWeatherForecast implements Func1<WeatherResponse, Observable<List<DailyForecast>>> {
     @Override
-    public Observable<List<DetailedWeatherForecast>> call(WeatherResponse responseArg) {
-        return Observable.just(responseArg)
-                .map(WeatherResponse::getList)
-                .map(new FromResponseToHasTableOfBriefWeatherForecast())
-                .flatMap((Func1<Map<Integer, List<BriefWeatherForecast>>, Observable<Map.Entry<Integer, List<BriefWeatherForecast>>>>) integerListMap -> Observable.from(integerListMap.entrySet()))
-                .map(new FromEntrySetOfIntegerAndListOfForecastToListOfDetailedWeatherForecast())
-                .sorted((detailedWeatherForecast, detailedWeatherForecast2) -> detailedWeatherForecast.getDate().compareTo(detailedWeatherForecast2.getDate()))
+    public Observable<List<DailyForecast>> call(WeatherResponse responseArg) {
+        return Observable.from(responseArg.getList())
+                .map(new FromListToBriefWeatherForecast())
+                .groupBy(list -> list.getDate().get(Calendar.DAY_OF_MONTH))
+                .flatMap(groupedObservable -> groupedObservable.sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate())).toList(),//сгрупировал и отсортировал  прогнозы в течении дня
+                        (grouped, shortForecasts) -> {//собрал прогноз на день
+                            DailyForecast dailyForecast = new DailyForecast();
+                            dailyForecast.setDate(DateConverter.convertToInteger(shortForecasts.get(0).getDate()));
+                            dailyForecast.setShortForecasts(shortForecasts);
+                            return dailyForecast;
+                        })
+                .sorted((detailedWeatherForecast, detailedWeatherForecast2) -> detailedWeatherForecast.getDate().compareTo(detailedWeatherForecast2.getDate()))//отсортировал прогнозы по дням
                 .toList();
     }
 }

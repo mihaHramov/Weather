@@ -1,12 +1,12 @@
 package com.aaa.bbb.ccc.data.repository.impl;
 
 import com.aaa.bbb.ccc.data.db.WeatherDatabase;
-import com.aaa.bbb.ccc.data.db.entity.Forecast;
+import com.aaa.bbb.ccc.data.model.entity.Forecast;
 import com.aaa.bbb.ccc.data.map.FromCityEntryToCity;
 import com.aaa.bbb.ccc.data.map.FromCityToCityEntity;
 import com.aaa.bbb.ccc.data.map.FromWeatherForecastToForecastEntity;
-import com.aaa.bbb.ccc.data.model.City;
-import com.aaa.bbb.ccc.data.model.WeatherForecast;
+import com.aaa.bbb.ccc.model.Place;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 
 import rx.Observable;
@@ -19,7 +19,7 @@ public class CashRepository implements ICashRepository {
     }
 
     @Override
-    public Observable<City> getCity(Integer id, String lang) {
+    public Observable<Place> getCity(Integer id, String lang) {
         Observable<String> langObs = Observable.just(lang);
         Observable<Integer> idObs = Observable.just(id);
         return Observable.zip(idObs, langObs,
@@ -28,21 +28,21 @@ public class CashRepository implements ICashRepository {
     }
 
     @Override
-    public void saveCity(City city) {
+    public void saveCity(Place place) {
         FromCityToCityEntity map = new FromCityToCityEntity();
-        mWeatherDataBase.getCityDao().insert(map.call(city));
+        mWeatherDataBase.getCityDao().insert(map.call(place));
     }
 
     @Override
-    public void saveWeatherForecast(WeatherForecast weatherForecast) {
+    public void saveWeatherForecast(SynopticForecast synopticForecast) {
         FromWeatherForecastToForecastEntity map = new FromWeatherForecastToForecastEntity();
-        for (Forecast forecast : map.call(weatherForecast)) {
+        for (Forecast forecast : map.call(synopticForecast)) {
             mWeatherDataBase.getForecastDao().insert(forecast);
         }
     }
 
     @Override
-    public Observable<WeatherForecast> getWeatherForecast(String lat, String lon, String lang, String metric) {
+    public Observable<SynopticForecast> getWeatherForecast(String lat, String lon, String lang, String metric) {
         //1 get city by coord
         //2 get forecast to city
         //sort by date

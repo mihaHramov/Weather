@@ -1,7 +1,7 @@
 package com.aaa.bbb.ccc.weather.presentation.forecast.list.fragment;
 
 
-import com.aaa.bbb.ccc.weather.model.ShortForecast;
+import com.aaa.bbb.ccc.model.ShortForecast;
 
 import java.util.List;
 

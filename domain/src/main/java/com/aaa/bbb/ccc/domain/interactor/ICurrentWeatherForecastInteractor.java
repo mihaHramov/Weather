@@ -1,6 +1,6 @@
 package com.aaa.bbb.ccc.domain.interactor;
 
-import com.aaa.bbb.ccc.domain.model.SynopticForecast;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 
 import rx.Observable;
 

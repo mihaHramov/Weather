@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.domain.map;
+package com.aaa.bbb.ccc.data.map;
 
 import com.aaa.bbb.ccc.model.WindType;
 

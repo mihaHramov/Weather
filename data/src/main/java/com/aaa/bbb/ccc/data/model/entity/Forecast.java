@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.db.entity;
+package com.aaa.bbb.ccc.data.model.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -7,9 +7,9 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.aaa.bbb.ccc.data.model.Wind;
 import com.aaa.bbb.ccc.model.Temperature;
 import com.aaa.bbb.ccc.model.WeatherType;
-import com.aaa.bbb.ccc.data.model.api.weather.Wind;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -27,6 +27,13 @@ public class Forecast {
     @ColumnInfo(name = "city_id")
     private long cityId;
 
+    @Embedded
+    private Wind wind;
+    @Embedded
+    private Temperature temperature;
+    @Embedded
+    private WeatherType weatherType;
+
     public long getId() {
         return id;
     }
@@ -42,13 +49,6 @@ public class Forecast {
     public void setCityId(long cityId) {
         this.cityId = cityId;
     }
-
-    @Embedded
-    private Wind wind;
-    @Embedded
-    private Temperature temperature;
-    @Embedded
-    private WeatherType weatherType;
 
     public Double getSnow() {
         return snow;

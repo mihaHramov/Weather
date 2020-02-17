@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
-import com.aaa.bbb.ccc.weather.model.DailyForecast;
+import com.aaa.bbb.ccc.model.DailyForecast;
 import com.aaa.bbb.ccc.weather.presentation.adapter.DetailForecastAdapter;
 
 import javax.inject.Inject;
@@ -55,7 +55,7 @@ public class DetailsWeatherForecastFragment extends MvpAppCompatFragment impleme
 
     @Override
     public void showWeatherForecast(DailyForecast dailyForecast) {
-        Toast.makeText(getActivity(), dailyForecast.getDate(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), dailyForecast.getDate().toString(), Toast.LENGTH_LONG).show();
         Toast.makeText(getActivity(),dailyForecast.getShortForecasts().size()+"",Toast.LENGTH_LONG).show();
         mAdapter.setItems(dailyForecast.getShortForecasts());
     }

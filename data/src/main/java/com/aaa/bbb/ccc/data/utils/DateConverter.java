@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.utils;
+package com.aaa.bbb.ccc.data.utils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,5 +13,9 @@ public class DateConverter {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
+    }
+
+    public static Integer convertToInteger(Calendar calendar) {
+        return (int) calendar.getTime().getTime()/1000;
     }
 }

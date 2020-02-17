@@ -4,7 +4,7 @@ import androidx.core.util.Pair;
 
 import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
 import com.aaa.bbb.ccc.data.map.ZipCityAndTranslateInfo;
-import com.aaa.bbb.ccc.data.model.City;
+import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
@@ -24,15 +24,15 @@ public class CityRepository implements ICityRepository {
     }
 
     @Override
-    public Observable<City> getCityTranslate(City locality) {
-        Observable<City> cityDbObs = mCashRepository.getCity(locality.getId(), locality.getLangName());
-        Observable<City> cityObservable = Observable.just(locality);
+    public Observable<Place> getCityTranslate(Place locality) {
+        Observable<Place> cityDbObs = mCashRepository.getCity(locality.getId(), locality.getLangName());
+        Observable<Place> cityObservable = Observable.just(locality);
         Observable<String> language = Observable.just(locality.getLangName());
-        Observable<String> name = cityObservable.map(City::getName);
+        Observable<String> name = cityObservable.map(Place::getName);
         Observable<String> oldLanguage = language.map(new TranslateLanguageMap(Const.OPEN_WEATHER_MAP_API_BASE_LANGUAGE));
-        Observable<City> defaultResult = Observable.zip(name, Observable.just(Const.OPEN_WEATHER_MAP_API_BASE_LANGUAGE), Pair::new)
+        Observable<Place> defaultResult = Observable.zip(name, Observable.just(Const.OPEN_WEATHER_MAP_API_BASE_LANGUAGE), Pair::new)
                 .zipWith(cityObservable, mapper);
-        Observable<City> resultOfTranslateObs = Observable.zip(name, oldLanguage, Pair::new)
+        Observable<Place> resultOfTranslateObs = Observable.zip(name, oldLanguage, Pair::new)
                 .flatMap(stringStringPair -> getTranslate(stringStringPair.first, stringStringPair.second),
                         (stringStringPair, s) -> new Pair<>(s, stringStringPair.second))
                 .zipWith(cityObservable, mapper)

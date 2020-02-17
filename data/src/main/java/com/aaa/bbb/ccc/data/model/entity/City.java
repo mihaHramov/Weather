@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.db.entity;
+package com.aaa.bbb.ccc.data.model.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
