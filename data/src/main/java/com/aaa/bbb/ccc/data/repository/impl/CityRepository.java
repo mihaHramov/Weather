@@ -4,11 +4,11 @@ import androidx.core.util.Pair;
 
 import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
 import com.aaa.bbb.ccc.data.map.ZipCityAndTranslateInfo;
-import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.utils.Const;
+import com.aaa.bbb.ccc.model.Place;
 
 import rx.Observable;
 
@@ -37,8 +37,7 @@ public class CityRepository implements ICityRepository {
                         (stringStringPair, s) -> new Pair<>(s, stringStringPair.second))
                 .zipWith(cityObservable, mapper)
                 .doOnNext(city -> mCashRepository.saveCity(city));
-        return resultOfTranslateObs
-                .mergeWith(cityDbObs)
+        return Observable.mergeDelayError(resultOfTranslateObs, cityDbObs)
                 .first()
                 .onErrorResumeNext(throwable -> defaultResult);
     }
