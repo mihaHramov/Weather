@@ -1,28 +1,33 @@
 package com.aaa.bbb.ccc.data;
 
-import com.aaa.bbb.ccc.model.Location;
-import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.data.model.api.translate.TranslateResponse;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.impl.CityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
+import com.aaa.bbb.ccc.model.Location;
+import com.aaa.bbb.ccc.model.Place;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscription;
+import rx.functions.Func1;
 import rx.observers.TestSubscriber;
+import rx.schedulers.Schedulers;
+import rx.schedulers.TestScheduler;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class PlaceRepositoryTest {
+    private static final String DB_ERROR = "db error";
     private Place place;
     private ICashRepository cashRepository;
     private TranslateApi translateApi;
@@ -78,12 +83,12 @@ public class PlaceRepositoryTest {
     @Test
     public void getCityTranslateWhenServerAndDbGetError() {
         when(translateApi.getTranslate(name, lang)).thenReturn(Observable.error(new Throwable("network error")));
-        when(cashRepository.getCity(id, lang)).thenReturn(Observable.error(new Throwable("db error")));
+        when(cashRepository.getCity(id, lang)).thenReturn(Observable.error(new Throwable(DB_ERROR)));
         Place placeDefault = new Place();
         placeDefault.setCountry(place.getCountry());
         placeDefault.setId(place.getId());
         placeDefault.setLangName(place.getLangName());
-        Location location = new Location("20.0","20.0");
+        Location location = new Location("20.0", "20.0");
         placeDefault.setLocation(location);
         placeDefault.setName(name);
 
@@ -98,13 +103,39 @@ public class PlaceRepositoryTest {
         verify(cashRepository).getCity(id, lang);
     }
 
+    @Test
+    public void getCityTranslateWhenDbGetError() {
+        TestScheduler scheduler = Schedulers.test();
+        Observable<Place> placeDbObservable = Observable.interval(250, TimeUnit.MILLISECONDS, scheduler)
+                .flatMap((Func1<Long, Observable<Place>>) aLong -> Observable.error(new Throwable(DB_ERROR)))
+                .onErrorResumeNext((Func1<Throwable, Observable<Place>>) throwable -> Observable.empty());
+        when(cashRepository.getCity(id, lang)).thenReturn(placeDbObservable);
+        TranslateResponse translateResponse = new TranslateResponse();
+        translateResponse.setCode(200);
+        translateResponse.setLang(lang);
+        translateResponse.setText(Collections.singletonList(translateName));
+        Observable<TranslateResponse> translateResponseObservable = Observable.interval(350, TimeUnit.MILLISECONDS, scheduler)
+                .flatMap((Func1<Long, Observable<TranslateResponse>>) aLong -> Observable.just(translateResponse));
+        when(translateApi.getTranslate(anyString(), anyString())).thenReturn(translateResponseObservable);
+        Subscription subscription = cityRepository
+                .getCityTranslate(place)
+                .subscribe(testSubscriber);
+
+        scheduler.advanceTimeBy(1000, TimeUnit.MILLISECONDS);
+        testSubscriber.assertCompleted();
+        testSubscriber.assertNoErrors();
+        Assert.assertEquals(translateName, testSubscriber.getOnNextEvents().get(0).getName());
+        verify(translateApi).getTranslate(anyString(), anyString());
+        subscription.unsubscribe();
+    }
+
     private Place initCity() {
         place = new Place();
         place.setName(name);
         place.setLangName(lang);
         place.setCountry("uk");
         place.setId(id);
-        Location location = new Location("20.0","20.0");
+        Location location = new Location("20.0", "20.0");
         place.setLocation(location);
         return place;
     }
