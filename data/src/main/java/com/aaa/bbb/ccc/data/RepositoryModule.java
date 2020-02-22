@@ -33,6 +33,7 @@ import dagger.Provides;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import pl.charmas.android.reactivelocation.ReactiveLocationProvider;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,8 +51,13 @@ public class RepositoryModule {
     }
 
     @Provides
-    ILocationRepository provideLocationRepository(Context context) {
-        return new LocationRepository(context);
+    ILocationRepository provideLocationRepository(ReactiveLocationProvider reactiveLocationProvider) {
+        return new LocationRepository(reactiveLocationProvider);
+    }
+
+    @Provides
+    ReactiveLocationProvider provideReactiveLocationProvider(Context context) {
+        return new ReactiveLocationProvider(context);
     }
 
     @Provides

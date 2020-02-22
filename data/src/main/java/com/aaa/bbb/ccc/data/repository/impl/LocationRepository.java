@@ -1,23 +1,20 @@
 package com.aaa.bbb.ccc.data.repository.impl;
 
-import android.content.Context;
-
-import com.aaa.bbb.ccc.model.Location;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
+import com.aaa.bbb.ccc.model.Location;
 
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider;
 import rx.Observable;
 
 public class LocationRepository implements ILocationRepository {
-    private Context context;
+    private ReactiveLocationProvider locationProvider;
 
-    public LocationRepository(Context context) {
-        this.context = context;
+    public LocationRepository(ReactiveLocationProvider reactiveLocationProvider) {
+        this.locationProvider = reactiveLocationProvider;
     }
 
     @Override
     public Observable<Location> getCurrentLocation() {
-        ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(context);
         return locationProvider.getLastKnownLocation().map(location -> {
             String lat = Double.toString(location.getLatitude());
             String lot = Double.toString(location.getLongitude());
