@@ -26,8 +26,10 @@ ext {
     daggerAnnotationProcessor = "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     //test
-    mockito = 'org.mockito:mockito-core:2.19.0'
+    mockito = 'org.mockito:mockito-core:3.2.4'
     junit = 'junit:junit:4.12'
+    gmsLocation = 'com.google.android.gms:play-services-location:17.0.0'
+    gmsPlaces = 'com.google.android.gms:play-services-places:17.0.0'
     mockwebserver = "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
     junitTestImplementation = 'androidx.test.ext:junit:1.1.1'
     espressoTestImplementation = 'androidx.test.espresso:espresso-core:3.2.0'
@@ -39,7 +41,6 @@ ext {
     //db
     room = "android.arch.persistence.room:runtime:1.1.1"
     roomAnnotationProcessor = "android.arch.persistence.room:compiler:1.1.1"
-
 
     //network
     okhttp = "com.squareup.okhttp3:okhttp:${okhttpVersion}"
@@ -62,8 +63,10 @@ ext {
     reactiveLocation = 'pl.charmas.android:android-reactive-location:1.0@aar'
 
     app = [
-            [configuration: "implementation", dependency: reactiveLocation],
 
+            [configuration: "implementation", dependency: gmsPlaces],
+            [configuration: "implementation", dependency: gmsLocation],
+            [configuration: "implementation", dependency: reactiveLocation],
             [configuration: "implementation", dependency: material],
             [configuration: "implementation", dependency: constraintlayout],
             [configuration: "implementation", dependency: appCompat],
@@ -88,8 +91,7 @@ ext {
 
     unitTestsDependencies = [
             [configuration: "testImplementation", dependency: junit],
-            [configuration: "testImplementation", dependency: mockito],
-            [configuration: "testImplementation", dependency: mockwebserver]
+            [configuration: "testImplementation", dependency: mockito]
     ]
     //Importend in app module only
     instrumentationTestsDependencies = [
