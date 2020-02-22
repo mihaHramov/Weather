@@ -1,7 +1,6 @@
-package com.aaa.bbb.ccc.data.repository.impl;
+package com.aaa.bbb.ccc.data.repository.SettingsRepository;
 
 import com.aaa.bbb.ccc.model.Location;
-import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
 
 import java.util.Locale;
 

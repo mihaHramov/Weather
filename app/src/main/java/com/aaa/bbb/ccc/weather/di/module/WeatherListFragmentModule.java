@@ -4,11 +4,11 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
+import com.aaa.bbb.ccc.data.repository.CityRepository.ICityRepository;
+import com.aaa.bbb.ccc.data.repository.LocationRepository.ILocationRepository;
+import com.aaa.bbb.ccc.data.repository.PermissionsRepository.IPermissionsRepository;
+import com.aaa.bbb.ccc.data.repository.SettingsRepository.ISettingsRepository;
+import com.aaa.bbb.ccc.data.repository.WeatherForecastRepository.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.domain.interactor.CurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.weather.presentation.adapter.ShortForecastAdapter;

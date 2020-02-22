@@ -2,8 +2,8 @@ package com.aaa.bbb.ccc.data;
 
 import android.location.Location;
 
-import com.aaa.bbb.ccc.data.repository.impl.LocationRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
+import com.aaa.bbb.ccc.data.repository.LocationRepository.LocationRepository;
+import com.aaa.bbb.ccc.data.repository.LocationRepository.ILocationRepository;
 
 import org.junit.Assert;
 import org.junit.Test;

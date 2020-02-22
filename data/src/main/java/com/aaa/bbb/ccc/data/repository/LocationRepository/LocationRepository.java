@@ -1,6 +1,5 @@
-package com.aaa.bbb.ccc.data.repository.impl;
+package com.aaa.bbb.ccc.data.repository.LocationRepository;
 
-import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.model.Location;
 
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider;

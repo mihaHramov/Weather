@@ -1,6 +1,5 @@
-package com.aaa.bbb.ccc.data.repository.impl;
+package com.aaa.bbb.ccc.data.repository.PermissionsRepository;
 
-import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import rx.Observable;

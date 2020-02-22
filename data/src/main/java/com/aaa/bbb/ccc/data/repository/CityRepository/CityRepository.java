@@ -1,12 +1,11 @@
-package com.aaa.bbb.ccc.data.repository.impl;
+package com.aaa.bbb.ccc.data.repository.CityRepository;
 
 import androidx.core.util.Pair;
 
 import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
 import com.aaa.bbb.ccc.data.map.ZipCityAndTranslateInfo;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
-import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
+import com.aaa.bbb.ccc.data.repository.CashRepository.ICashRepository;
 import com.aaa.bbb.ccc.data.utils.Const;
 import com.aaa.bbb.ccc.model.Place;
 

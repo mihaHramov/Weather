@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.repository.impl;
+package com.aaa.bbb.ccc.data.repository.CashRepository;
 
 import com.aaa.bbb.ccc.data.db.WeatherDatabase;
 import com.aaa.bbb.ccc.data.model.entity.Forecast;
@@ -7,7 +7,6 @@ import com.aaa.bbb.ccc.data.map.FromCityToCityEntity;
 import com.aaa.bbb.ccc.data.map.FromWeatherForecastToForecastEntity;
 import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.model.SynopticForecast;
-import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 
 import rx.Observable;
 

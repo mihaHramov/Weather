@@ -4,8 +4,8 @@ import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
-import com.aaa.bbb.ccc.data.repository.impl.WeatherForecastRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
+import com.aaa.bbb.ccc.data.repository.WeatherForecastRepository.WeatherForecastRepository;
+import com.aaa.bbb.ccc.data.repository.CashRepository.ICashRepository;
 import com.google.gson.Gson;
 
 import org.junit.Before;

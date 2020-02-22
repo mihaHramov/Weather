@@ -1,11 +1,10 @@
-package com.aaa.bbb.ccc.data.repository.impl;
+package com.aaa.bbb.ccc.data.repository.WeatherForecastRepository;
 
 import com.aaa.bbb.ccc.data.map.FromResponseToListOfDetailedWeatherForecast;
 import com.aaa.bbb.ccc.data.map.FromWeatherResponseToWeatherForecast;
 import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
-import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
+import com.aaa.bbb.ccc.data.repository.CashRepository.ICashRepository;
 
 import rx.Observable;
 
