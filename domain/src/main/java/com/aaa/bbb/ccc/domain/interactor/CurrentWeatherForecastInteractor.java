@@ -5,15 +5,14 @@ import android.Manifest;
 import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.model.Location;
 
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecastInteractor {
-    private ISchedulerRepository mSchedulerRepository;
     private IPermissionsRepository mPermissionsRepository;
     private IWeatherForecastRepository mRepositoryOfWeather;
     private ILocationRepository mLocationRepository;
@@ -25,13 +24,11 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
             IWeatherForecastRepository mRepositoryOfWeather,
             ILocationRepository mLocationRepository,
             ISettingsRepository settingsRepository,
-            ISchedulerRepository schedulerRepository,
             ICityRepository cityRepository) {
         this.mPermissionsRepository = mPermissionsRepository;
         this.mRepositoryOfWeather = mRepositoryOfWeather;
         this.mLocationRepository = mLocationRepository;
         this.mSettingsRepository = settingsRepository;
-        this.mSchedulerRepository = schedulerRepository;
         this.mCityRepository = cityRepository;
     }
 
@@ -54,6 +51,6 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
                             weatherForecast.setPlace(city);
                             return weatherForecast;
                         })
-                .subscribeOn(mSchedulerRepository.getIO());
+                .subscribeOn(Schedulers.io());
     }
 }

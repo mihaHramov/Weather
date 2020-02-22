@@ -11,14 +11,12 @@ import com.aaa.bbb.ccc.data.repository.impl.CashRepository;
 import com.aaa.bbb.ccc.data.repository.impl.CityRepository;
 import com.aaa.bbb.ccc.data.repository.impl.LocationRepository;
 import com.aaa.bbb.ccc.data.repository.impl.PermissionsRepository;
-import com.aaa.bbb.ccc.data.repository.impl.SchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.impl.SettingsRepository;
 import com.aaa.bbb.ccc.data.repository.impl.WeatherForecastRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.data.utils.Const;
@@ -40,10 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class RepositoryModule {
-    @Provides
-    ISchedulerRepository schedulerRepository() {
-        return new SchedulerRepository();
-    }
+
 
     @Provides
     ISettingsRepository provideISettingsRepository() {

@@ -2,9 +2,6 @@ package com.aaa.bbb.ccc.domain;
 
 import android.Manifest;
 
-import com.aaa.bbb.ccc.model.Place;
-import com.aaa.bbb.ccc.model.Location;
-import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.data.model.api.weather.Coord;
 import com.aaa.bbb.ccc.data.model.api.weather.WeatherResponse;
 import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
@@ -13,39 +10,54 @@ import com.aaa.bbb.ccc.data.repository.intrf.ICashRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.domain.interactor.CurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
+import com.aaa.bbb.ccc.model.Location;
+import com.aaa.bbb.ccc.model.Place;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.rules.TestRule;
+import org.junit.runners.model.Statement;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
 import rx.Observable;
+import rx.Scheduler;
+import rx.android.plugins.RxAndroidPlugins;
+import rx.android.plugins.RxAndroidSchedulersHook;
 import rx.observers.TestSubscriber;
+import rx.plugins.RxJavaHooks;
 import rx.schedulers.Schedulers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CurrentSynopticForecastInteractorTest {
-    private ISchedulerRepository mSchedulerRepository;
-    private IPermissionsRepository mPermissionsRepository;
-    private IWeatherForecastRepository mRepositoryOfWeather;
-    private ILocationRepository mLocationRepository;
-    private ISettingsRepository mSettingsRepository;
-    private ICityRepository mCityRepository;
-    private OpenWeatherMapApi weatherApi;
-    private ICashRepository cashRepository;
+    @Mock
+    IPermissionsRepository mPermissionsRepository;
+    @Mock
+    IWeatherForecastRepository mRepositoryOfWeather;
+    @Mock
+    ILocationRepository mLocationRepository;
+    @Mock
+    ISettingsRepository mSettingsRepository;
+    @Mock
+    ICityRepository mCityRepository;
+    @Mock
+    OpenWeatherMapApi weatherApi;
+    @Mock
+    ICashRepository cashRepository;
 
     private String defaultLang = "ru";
     private String defaultMetric = "metric";
@@ -58,43 +70,47 @@ public class CurrentSynopticForecastInteractorTest {
     private String enName = "London";
     private TestSubscriber<com.aaa.bbb.ccc.model.SynopticForecast> testSubscriber;
 
+    @Rule
+    public TestRule rxSchedulerRule = (base, description) -> new Statement() {
+        @Override
+        public void evaluate() throws Throwable {
+            RxAndroidPlugins.getInstance().reset();
+            RxAndroidPlugins.getInstance().registerSchedulersHook(new RxAndroidSchedulersHook() {
+                @Override
+                public Scheduler getMainThreadScheduler() {
+                    return Schedulers.immediate();
+                }
+            });
+
+            RxJavaHooks.reset();
+            RxJavaHooks.setOnIOScheduler(scheduler -> Schedulers.immediate());
+            RxJavaHooks.setOnNewThreadScheduler(scheduler -> Schedulers.immediate());
+            RxJavaHooks.setOnComputationScheduler(scheduler -> Schedulers.immediate());
+
+            base.evaluate();
+
+            RxAndroidPlugins.getInstance().reset();
+            RxJavaHooks.reset();
+        }
+    };
+
     @Before
     public void setUp() {
-        //mock settings repository
+        MockitoAnnotations.initMocks(this);
         testSubscriber = new TestSubscriber<>();
-        mSettingsRepository = mock(ISettingsRepository.class);
         when(mSettingsRepository.getLanguage()).thenReturn(Observable.just(defaultLang));
         when(mSettingsRepository.getUnits()).thenReturn(Observable.just(defaultMetric));
         Location location = new Location(lat, lon);
         when(mSettingsRepository.getDefaultLocation()).thenReturn(Observable.just(location));
-
-        //mock mLocation Repository
-        mLocationRepository = mock(ILocationRepository.class);
         when(mLocationRepository.getCurrentLocation()).thenReturn(Observable.just(location));
-
-        //mock mSchedulerRepository
-        mSchedulerRepository = mock(ISchedulerRepository.class);
-        when(mSchedulerRepository.getIO()).thenReturn(Schedulers.immediate());
-
-
-        //mock IPermissionsRepository
-        mPermissionsRepository = mock(IPermissionsRepository.class);
         when(mPermissionsRepository.getPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(Observable.just(true));
-
-        //mock mRepositoryOfWeather
-        mRepositoryOfWeather = mock(IWeatherForecastRepository.class);
         Place place = createCity();
-
         SynopticForecast synopticForecast = new SynopticForecast(place, new ArrayList<>());
         when(mRepositoryOfWeather.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(synopticForecast));
-        //mock mCityRepository
-        mCityRepository = mock(ICityRepository.class);
         Place placeResult = createCity();
         placeResult.setName(translateName);
         when(mCityRepository.getCityTranslate(any(Place.class))).thenReturn(Observable.just(placeResult));
-        weatherApi = Mockito.mock(OpenWeatherMapApi.class);
-        cashRepository = Mockito.mock(ICashRepository.class);
-        interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather, mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
+        interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather, mLocationRepository, mSettingsRepository, mCityRepository);
     }
 
     private Place createCity() {
@@ -141,7 +157,7 @@ public class CurrentSynopticForecastInteractorTest {
         when(weatherApi.getForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.just(createWeatherResponse()));
         doNothing().when(cashRepository).saveWeatherForecast(any(SynopticForecast.class));
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather,
-                mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
+                mLocationRepository, mSettingsRepository, mCityRepository);
 
         interactor.getCurrentWeather().subscribe(testSubscriber);
         testSubscriber.assertCompleted();
@@ -160,7 +176,7 @@ public class CurrentSynopticForecastInteractorTest {
         when(weatherApi.getForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.error(new Throwable("network error")));
         doNothing().when(cashRepository).saveWeatherForecast(any(SynopticForecast.class));
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather,
-                mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
+                mLocationRepository, mSettingsRepository, mCityRepository);
 
         interactor.getCurrentWeather().subscribe(testSubscriber);
         testSubscriber.assertCompleted();
@@ -176,7 +192,7 @@ public class CurrentSynopticForecastInteractorTest {
         when(mRepositoryOfWeather.getWeatherForecast(lat, lon, defaultLang, defaultMetric)).thenReturn(Observable.error(new Throwable("empty")));
         doNothing().when(cashRepository).saveWeatherForecast(any(SynopticForecast.class));
         interactor = new CurrentWeatherForecastInteractor(mPermissionsRepository, mRepositoryOfWeather,
-                mLocationRepository, mSettingsRepository, mSchedulerRepository, mCityRepository);
+                mLocationRepository, mSettingsRepository, mCityRepository);
 
         interactor.getCurrentWeather().subscribe(testSubscriber);
         testSubscriber.assertNotCompleted();

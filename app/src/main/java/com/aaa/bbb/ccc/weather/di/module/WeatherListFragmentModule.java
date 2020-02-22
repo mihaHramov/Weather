@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.aaa.bbb.ccc.data.repository.intrf.ICityRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IPermissionsRepository;
-import com.aaa.bbb.ccc.data.repository.intrf.ISchedulerRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.intrf.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.domain.interactor.CurrentWeatherForecastInteractor;
@@ -32,8 +31,8 @@ public class WeatherListFragmentModule {
     }
 
     @Provides
-    WeatherListScreenPresenter presenter(ICurrentWeatherForecastInteractor interactor, Router router,ISchedulerRepository mSchedulerRepository) {
-        return new WeatherListScreenPresenter(mSchedulerRepository, interactor, router);
+    WeatherListScreenPresenter presenter(ICurrentWeatherForecastInteractor interactor, Router router) {
+        return new WeatherListScreenPresenter(interactor, router);
     }
 
     @Provides
@@ -41,8 +40,7 @@ public class WeatherListFragmentModule {
                                                  IWeatherForecastRepository weatherForecastRepository,
                                                  ILocationRepository locationRepository,
                                                  ISettingsRepository settingsRepository,
-                                                 ISchedulerRepository schedulerRepository,
-                                                 ICityRepository cityRepository){
-        return new CurrentWeatherForecastInteractor(permissionsRepository,weatherForecastRepository,locationRepository,settingsRepository,schedulerRepository,cityRepository);
+                                                 ICityRepository cityRepository) {
+        return new CurrentWeatherForecastInteractor(permissionsRepository, weatherForecastRepository, locationRepository, settingsRepository, cityRepository);
     }
 }
