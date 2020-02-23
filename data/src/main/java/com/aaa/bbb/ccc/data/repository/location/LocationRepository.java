@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.repository.LocationRepository;
+package com.aaa.bbb.ccc.data.repository.location;
 
 import com.aaa.bbb.ccc.model.Location;
 

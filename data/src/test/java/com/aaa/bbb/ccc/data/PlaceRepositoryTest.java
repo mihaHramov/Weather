@@ -2,8 +2,8 @@ package com.aaa.bbb.ccc.data;
 
 import com.aaa.bbb.ccc.data.model.api.translate.TranslateResponse;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
-import com.aaa.bbb.ccc.data.repository.CityRepository.CityRepository;
-import com.aaa.bbb.ccc.data.repository.CashRepository.ICashRepository;
+import com.aaa.bbb.ccc.data.repository.city.CityRepository;
+import com.aaa.bbb.ccc.data.repository.cash.ICashRepository;
 import com.aaa.bbb.ccc.model.Location;
 import com.aaa.bbb.ccc.model.Place;
 

@@ -2,7 +2,7 @@ package com.aaa.bbb.ccc.data;
 
 import android.Manifest;
 
-import com.aaa.bbb.ccc.data.repository.PermissionsRepository.PermissionsRepository;
+import com.aaa.bbb.ccc.data.repository.permissions.PermissionsRepository;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.junit.Assert;

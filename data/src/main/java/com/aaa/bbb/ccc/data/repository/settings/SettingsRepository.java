@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.repository.SettingsRepository;
+package com.aaa.bbb.ccc.data.repository.settings;
 
 import com.aaa.bbb.ccc.model.Location;
 

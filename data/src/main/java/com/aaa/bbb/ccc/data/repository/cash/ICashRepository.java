@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.repository.CashRepository;
+package com.aaa.bbb.ccc.data.repository.cash;
 
 import com.aaa.bbb.ccc.model.Place;
 import com.aaa.bbb.ccc.model.SynopticForecast;

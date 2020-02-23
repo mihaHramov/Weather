@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.repository.PermissionsRepository;
+package com.aaa.bbb.ccc.data.repository.permissions;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 

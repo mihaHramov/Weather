@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.repository.WeatherForecastRepository;
+package com.aaa.bbb.ccc.data.repository.forecast;
 
 import com.aaa.bbb.ccc.model.SynopticForecast;
 
