@@ -12,7 +12,7 @@ public class FromCityEntryToCity implements Func1<City, Place> {
         placeModel.setLangName(city.getLangName());
         placeModel.setName(city.getName());
         placeModel.setCountry(city.getCountry());
-        placeModel.setId((int) city.getId());
+        placeModel.setId(city.getIdCity());
         return placeModel;
     }
 }
