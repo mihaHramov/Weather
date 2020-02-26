@@ -28,12 +28,15 @@ ext {
     //test
     mockito = 'org.mockito:mockito-core:3.2.4'
     junit = 'junit:junit:4.12'
-    gmsLocation = 'com.google.android.gms:play-services-location:17.0.0'
-    gmsPlaces = 'com.google.android.gms:play-services-places:17.0.0'
+    robolectic = 'org.robolectric:robolectric:3.6.1'
+
     mockwebserver = "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
     junitTestImplementation = 'androidx.test.ext:junit:1.1.1'
     espressoTestImplementation = 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //google services
+    gmsLocation = 'com.google.android.gms:play-services-location:17.0.0'
+    gmsPlaces = 'com.google.android.gms:play-services-places:17.0.0'
 
     //firebase
     firebase = 'com.google.firebase:firebase-analytics:17.2.2'
@@ -90,6 +93,7 @@ ext {
     ]
 
     unitTestsDependencies = [
+            [configuration: "testImplementation", dependency: robolectic],
             [configuration: "testImplementation", dependency: junit],
             [configuration: "testImplementation", dependency: mockito]
     ]
