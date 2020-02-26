@@ -17,7 +17,7 @@ import static androidx.room.ForeignKey.CASCADE;
         indices = {@Index("city_id")}
 )
 public class Forecast {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private Integer date;
     private Double snow;
