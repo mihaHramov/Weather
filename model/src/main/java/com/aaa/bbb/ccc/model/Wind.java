@@ -11,6 +11,9 @@ public class Wind implements Serializable {
         this.deg = deg;
     }
 
+    public Wind() {
+    }
+
     public Integer getDeg() {
         return deg;
     }
