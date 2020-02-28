@@ -16,6 +16,7 @@ public class FromBriefForecastToForecastEntity implements Func2<ShortForecast, P
         forecast.setHumidity(shortForecast.getHumidity());
         forecast.setPressure(shortForecast.getPressure());
         forecast.setSnow(shortForecast.getSnow());
+        forecast.setRain(shortForecast.getRain());
         forecast.setTemperature(shortForecast.getTemperature());
         forecast.setWind(shortForecast.getWind());
         forecast.setWeatherType(shortForecast.getWeatherType());

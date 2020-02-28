@@ -21,6 +21,7 @@ public class Forecast {
     private long id;
     private Integer date;
     private Double snow;
+    private Double rain;
     private Integer clouds;
     private Integer humidity;
     private Integer pressure;
@@ -84,6 +85,14 @@ public class Forecast {
 
     public Integer getPressure() {
         return pressure;
+    }
+
+    public Double getRain() {
+        return rain;
+    }
+
+    public void setRain(Double rain) {
+        this.rain = rain;
     }
 
     public void setPressure(Integer pressure) {
