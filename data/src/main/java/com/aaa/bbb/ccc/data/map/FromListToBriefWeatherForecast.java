@@ -18,9 +18,9 @@ public class FromListToBriefWeatherForecast implements Func1<List, ShortForecast
     @Override
     public ShortForecast call(List listWeatherItem) {
         ShortForecast shortForecast = new ShortForecast();
-        shortForecast.setDate(DateConverter.getDateByInteger(listWeatherItem.getDt()));
-        WindType windType = WindTypeConverter.convert(listWeatherItem.getWind());
-        Wind wind = new Wind(windType,listWeatherItem.getWind().getSpeed());
+        shortForecast.setDate(listWeatherItem.getDt());
+        com.aaa.bbb.ccc.data.model.api.weather.Wind windApiModel = listWeatherItem.getWind();
+        Wind wind = new Wind(windApiModel.getSpeed(),windApiModel.getDeg());
         shortForecast.setWind(wind);
 
         if (listWeatherItem.getRain() != null) {

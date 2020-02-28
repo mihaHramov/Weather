@@ -4,7 +4,7 @@ import androidx.core.util.Pair;
 
 import com.aaa.bbb.ccc.data.map.FromCityApiToPlace;
 import com.aaa.bbb.ccc.data.map.TranslateLanguageMap;
-import com.aaa.bbb.ccc.data.map.WindTypeConverter;
+import com.aaa.bbb.ccc.model.WindTypeConverter;
 import com.aaa.bbb.ccc.data.map.ZipCityAndTranslateInfo;
 import com.aaa.bbb.ccc.data.model.api.weather.Coord;
 import com.aaa.bbb.ccc.data.model.api.weather.Wind;
@@ -58,32 +58,32 @@ public class MapClassTest {
         Wind wind = new Wind();
         wind.setSpeed(300.0);
         wind.setDeg(360);
-        WindType result = WindTypeConverter.convert(wind);
+        WindType result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.N, result);
 
         wind.setDeg(3);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.NE, result);
 
         wind.setDeg(90);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.E, result);
         wind.setDeg(100);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.SE, result);
 
         wind.setDeg(165);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.SW, result);
 
         wind.setDeg(160);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.S, result);
         wind.setDeg(270);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.W, result);
         wind.setDeg(290);
-        result = WindTypeConverter.convert(wind);
+        result = WindTypeConverter.convert(wind.getDeg());
         Assert.assertEquals(WindType.NW, result);
     }
 }

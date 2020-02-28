@@ -3,29 +3,20 @@ package com.aaa.bbb.ccc.model;
 import java.io.Serializable;
 
 public class Wind implements Serializable {
-    private WindType windType;
     private Double windSpeed;
     private Integer deg;
 
-    public Wind(WindType type, Double speed) {
-        windType = type;
-        windSpeed = speed;
+    public Wind(Double speed , Integer deg) {
+        this.windSpeed = speed;
+        this.deg = deg;
     }
 
     public Integer getDeg() {
         return deg;
     }
 
-    public void setDeg(Integer deg) {
-        this.deg = deg;
-    }
-
     public WindType getWindType() {
-        return windType;
-    }
-
-    public void setWindType(WindType windType) {
-        this.windType = windType;
+        return WindTypeConverter.convert(deg);
     }
 
     public Double getWindSpeed() {
@@ -34,5 +25,9 @@ public class Wind implements Serializable {
 
     public void setWindSpeed(Double windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    public void setDeg(Integer deg) {
+        this.deg = deg;
     }
 }

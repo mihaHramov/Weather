@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 public class ShortForecast implements Serializable {
-    private Calendar date;
+    private Integer date;
     private Double snow;
     private Wind wind;
     private Integer clouds;
@@ -38,11 +38,11 @@ public class ShortForecast implements Serializable {
         this.temperature = temperature;
     }
 
-    public Calendar getDate() {
+    public Integer getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Integer date) {
         this.date = date;
     }
 

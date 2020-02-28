@@ -1,15 +1,12 @@
-package com.aaa.bbb.ccc.data.map;
-
-import com.aaa.bbb.ccc.model.WindType;
+package com.aaa.bbb.ccc.model;
 
 public class WindTypeConverter {
     private WindTypeConverter() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static WindType convert(com.aaa.bbb.ccc.data.model.api.weather.Wind wind) {
+    public static WindType convert(int deg) {
         WindType w;
-        Integer deg = wind.getDeg();
         if (deg == 360 || deg == 0) {
             w = WindType.N;
         } else if (deg > 0 && deg < 90) {

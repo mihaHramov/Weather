@@ -11,7 +11,7 @@ import static com.aaa.bbb.ccc.data.DbTestHelper.getCity;
 import static com.aaa.bbb.ccc.data.DbTestHelper.getForecast;
 
 @RunWith(RobolectricTestRunner.class)
-public class CityDaoTest extends BaseDbTest {
+public class DaoTest extends BaseDbTest {
 
     @Test
     public void insertTest() {

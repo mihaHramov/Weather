@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aaa.bbb.ccc.data.utils.DateConverter;
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.model.ShortForecast;
 import com.squareup.picasso.Picasso;
@@ -74,7 +75,7 @@ public class DetailForecastAdapter extends RecyclerView.Adapter<DetailForecastAd
         }
 
         void bind(ShortForecast forecast) {
-            mDate.setText(forecast.getDate().get(Calendar.DAY_OF_WEEK));
+            mDate.setText(DateConverter.getDateByInteger(forecast.getDate()).get(Calendar.DAY_OF_WEEK));
             String min = Double.toString(forecast.getTemperature().getMin());
             String max = Double.toString(forecast.getTemperature().getMax());
             minTemperature.setText(min);

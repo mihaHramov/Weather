@@ -15,11 +15,11 @@ public class FromResponseToListOfDetailedWeatherForecast implements Func1<Weathe
     public Observable<List<DailyForecast>> call(WeatherResponse responseArg) {
         return Observable.from(responseArg.getList())
                 .map(new FromListToBriefWeatherForecast())
-                .groupBy(list -> list.getDate().get(Calendar.DAY_OF_MONTH))
+                .groupBy(list ->DateConverter.getDateByInteger(list.getDate()).get(Calendar.DAY_OF_MONTH))
                 .flatMap(groupedObservable -> groupedObservable.sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate())).toList(),//сгрупировал и отсортировал  прогнозы в течении дня
                         (grouped, shortForecasts) -> {//собрал прогноз на день
                             DailyForecast dailyForecast = new DailyForecast();
-                            dailyForecast.setDate(DateConverter.convertToInteger(shortForecasts.get(0).getDate()));
+                            dailyForecast.setDate(shortForecasts.get(0).getDate());
                             dailyForecast.setShortForecasts(shortForecasts);
                             return dailyForecast;
                         })
