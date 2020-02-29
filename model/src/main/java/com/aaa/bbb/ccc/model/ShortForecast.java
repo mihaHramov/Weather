@@ -1,7 +1,6 @@
 package com.aaa.bbb.ccc.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 public class ShortForecast implements Serializable {
     private Integer date;

@@ -9,6 +9,5 @@ public interface ICashRepository {
     Observable<Place> getCity(Integer id, String lang);
     void saveCity(Place place);
     void saveWeatherForecast(SynopticForecast synopticForecast);
-
-    Observable<SynopticForecast> getWeatherForecast(String lat, String lon, String lang, String metric);
+    Observable<SynopticForecast> getWeatherForecast(String lat, String lon, Integer date);
 }

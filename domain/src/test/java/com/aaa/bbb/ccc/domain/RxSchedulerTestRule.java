@@ -11,7 +11,7 @@ import rx.functions.Func1;
 import rx.plugins.RxJavaHooks;
 import rx.schedulers.Schedulers;
 
-public class RxSchedulerRule implements TestRule {
+public class RxSchedulerTestRule implements TestRule {
 
     private final RxAndroidSchedulersHook rxAndroidSchedulersHook = new RxAndroidSchedulersHook() {
         @Override
