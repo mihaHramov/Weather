@@ -15,7 +15,4 @@ public class DateConverter {
         return calendar;
     }
 
-    public static Integer convertToInteger(Calendar calendar) {
-        return (int) calendar.getTime().getTime()/1000;
-    }
 }
