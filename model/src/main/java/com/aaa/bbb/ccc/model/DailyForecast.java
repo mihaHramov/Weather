@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public class DailyForecast implements Serializable {
-    private Integer date;
     private List<ShortForecast> shortForecasts;
 
     public List<ShortForecast> getShortForecasts() {
@@ -15,12 +14,8 @@ public class DailyForecast implements Serializable {
         this.shortForecasts = shortForecasts;
     }
 
-    public Integer getDate() {
-        return date;
-    }
-
-    public void setDate(Integer date) {
-        this.date = date;
+    public DailyForecast(List<ShortForecast> shortForecasts) {
+        this.shortForecasts = shortForecasts;
     }
 
     public ShortForecast getPreview() {

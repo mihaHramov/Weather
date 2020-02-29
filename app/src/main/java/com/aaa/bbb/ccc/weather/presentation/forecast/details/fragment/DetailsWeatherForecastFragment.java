@@ -55,7 +55,7 @@ public class DetailsWeatherForecastFragment extends MvpAppCompatFragment impleme
 
     @Override
     public void showWeatherForecast(DailyForecast dailyForecast) {
-        Toast.makeText(getActivity(), dailyForecast.getDate().toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), dailyForecast.getPreview().getDate().toString(), Toast.LENGTH_LONG).show();
         Toast.makeText(getActivity(),dailyForecast.getShortForecasts().size()+"",Toast.LENGTH_LONG).show();
         mAdapter.setItems(dailyForecast.getShortForecasts());
     }
