@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SynopticForecast implements Serializable {
-    private Place  place;
+    private Place place;
     private List<DailyForecast> dailyForecast;
 
     public SynopticForecast(Place place, List<DailyForecast> dailyForecast) {
@@ -25,7 +25,8 @@ public class SynopticForecast implements Serializable {
         this.dailyForecast = dailyForecast;
     }
 
-    public void setPlace(Place city) {
+    public SynopticForecast setPlace(Place city) {
         this.place = city;
+        return this;
     }
 }

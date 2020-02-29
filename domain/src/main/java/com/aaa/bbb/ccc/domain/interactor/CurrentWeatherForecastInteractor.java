@@ -8,6 +8,7 @@ import com.aaa.bbb.ccc.data.repository.permissions.IPermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.settings.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.forecast.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.model.Location;
+import com.aaa.bbb.ccc.model.SynopticForecast;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -34,7 +35,7 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
 
 
     @Override
-    public Observable<com.aaa.bbb.ccc.model.SynopticForecast> getCurrentWeather() {
+    public Observable<SynopticForecast> getCurrentWeather() {
         Observable<Location> locationObservable = mPermissionsRepository
                 .getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .flatMap(isGranted -> Boolean.TRUE.equals(isGranted)
@@ -46,11 +47,7 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
         return Observable.zip(locationObservable, languageObservable, unitsObservable,
                 (location, lang, utils) -> mRepositoryOfWeather.getWeatherForecast(location.getLat(), location.getLot(), lang, utils))
                 .flatMap(weatherForecastObservable -> weatherForecastObservable)
-                .flatMap(weatherForecast -> mCityRepository.getCityTranslate(weatherForecast.getPlace()),
-                        (weatherForecast, city) -> {
-                            weatherForecast.setPlace(city);
-                            return weatherForecast;
-                        })
+                .flatMap(weatherForecast -> mCityRepository.getCityTranslate(weatherForecast.getPlace()), SynopticForecast::setPlace)
                 .subscribeOn(Schedulers.io());
     }
 }
