@@ -45,7 +45,7 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
         Observable<String> languageObservable = mSettingsRepository.getLanguage();
         Observable<String> unitsObservable = mSettingsRepository.getUnits();
         return Observable.zip(locationObservable, languageObservable, unitsObservable,
-                (location, lang, utils) -> mRepositoryOfWeather.getWeatherForecast(location.getLat(), location.getLot(), lang, utils))
+                (location, lang, utils) -> mRepositoryOfWeather.getWeatherForecast(location.getLat(), location.getLot(), lang, mSettingsRepository.getTime(),utils))
                 .flatMap(weatherForecastObservable -> weatherForecastObservable)
                 .flatMap(weatherForecast -> mCityRepository.getCityTranslate(weatherForecast.getPlace()), SynopticForecast::setPlace)
                 .subscribeOn(Schedulers.io());

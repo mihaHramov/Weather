@@ -8,4 +8,6 @@ public interface ISettingsRepository {
     Observable<String> getLanguage();
     Observable<String> getUnits();
     Observable<Location> getDefaultLocation();
+
+    Integer getTime();
 }
