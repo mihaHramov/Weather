@@ -19,7 +19,7 @@ public interface CityDao {
     @Query("SELECT *," +
             "(latSin*:sinLat+latCos*:cosLat*(lonSin*:sinLon+lonCos*:cosLon))\n" +
             "AS distance\n" +
-            "FROM city WHERE id IN(SELECT city_id FROM forecast WHERE date>=:date )\n" +
+            "FROM city WHERE city_id IN(SELECT city_id FROM forecast WHERE date>=:date )\n" +
             "ORDER BY distance DESC\n"+
             "LIMIT 1;" )
     City getCityByCoordinates(Double sinLat, Double cosLat,Double sinLon,Double cosLon,Integer date);
