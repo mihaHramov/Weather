@@ -3,19 +3,13 @@ package com.aaa.bbb.ccc.data.model.entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.aaa.bbb.ccc.model.Wind;
 import com.aaa.bbb.ccc.model.Temperature;
 import com.aaa.bbb.ccc.model.WeatherType;
+import com.aaa.bbb.ccc.model.Wind;
 
-import static androidx.room.ForeignKey.CASCADE;
-
-@Entity(foreignKeys = @ForeignKey(entity = City.class, parentColumns = "id", childColumns = "city_id", onDelete = CASCADE),
-        indices = {@Index("city_id")}
-)
+@Entity
 public class Forecast {
     @PrimaryKey(autoGenerate = true)
     private long id;
