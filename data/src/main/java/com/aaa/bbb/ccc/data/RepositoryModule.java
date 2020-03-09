@@ -19,7 +19,7 @@ import com.aaa.bbb.ccc.data.repository.location.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.permissions.IPermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.settings.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.forecast.IWeatherForecastRepository;
-import com.aaa.bbb.ccc.data.utils.Const;
+import com.aaa.bbb.ccc.utils.Const;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tbruyelle.rxpermissions.RxPermissions;

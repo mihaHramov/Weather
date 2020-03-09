@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.data.utils;
+package com.aaa.bbb.ccc.utils;
 public final class Const {
     private Const() {
         throw new IllegalStateException("Utility class");
