@@ -1,7 +1,5 @@
 package com.aaa.bbb.ccc.weather.presentation.forecast.list.fragment;
 
-import android.os.Bundle;
-
 import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.model.DailyForecast;
 import com.aaa.bbb.ccc.model.SynopticForecast;
@@ -30,8 +28,7 @@ public class WeatherListScreenPresenter extends MvpPresenter<WeatherListScreenVi
     }
 
 
-    void onCreate(Bundle bundle) {
-        if (bundle == null) {
+    void onCreate() {
             mInteractor.getCurrentWeather()
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext(synopticForecast -> mSynopticForecast = synopticForecast)
@@ -41,7 +38,6 @@ public class WeatherListScreenPresenter extends MvpPresenter<WeatherListScreenVi
                     .toList()
                     .subscribe(shortForecasts -> getViewState().showWeather(shortForecasts),
                             throwable -> getViewState().showError(throwable.getMessage()));
-        }
     }
 
 

@@ -36,7 +36,8 @@ sonarqube {
                 '**/*App.*',
                 '**/*Module.*',
                 '**/*Component.*',
-                '**/di/**/*'
+                '**/di/**/*',
+                '**/model/**/*'
         ]
         property "sonar.coverage.exclusions", excludes.join(",")
         property "sonar.coverage.jacoco.xmlReportPaths", fileTree(includes:["**/*Jacoco*.xml"] , dir: "$rootDir/app/build/reports/jacoco").collect()
@@ -60,6 +61,8 @@ dependencies {
 
     //module
     implementation project(path: ':data')
+    implementation project(path: ':testhelper')
+    implementation project(path: ':utils')
     implementation project(path: ':model')
     implementation project(path: ':domain')
 

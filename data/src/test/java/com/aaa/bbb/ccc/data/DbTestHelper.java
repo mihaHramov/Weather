@@ -2,24 +2,12 @@ package com.aaa.bbb.ccc.data;
 
 import com.aaa.bbb.ccc.data.model.entity.City;
 import com.aaa.bbb.ccc.data.model.entity.Forecast;
-import com.aaa.bbb.ccc.model.Location;
-import com.aaa.bbb.ccc.model.Place;
 
 class DbTestHelper {
     private DbTestHelper() {
         throw new IllegalStateException("Utility class");
     }
 
-    static Place getPlace(String name, String country, String lang, Integer id, String lat, String lon) {
-        Place place = new Place();
-        place.setCountry(country);
-        place.setName(name);
-        place.setLangName(lang);
-        place.setId(id);
-        Location location = new Location(lat, lon);
-        place.setLocation(location);
-        return place;
-    }
 
     static City getCity(String name,
                         String country,

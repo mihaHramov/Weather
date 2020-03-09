@@ -1,4 +1,4 @@
-package com.aaa.bbb.ccc.domain;
+package com.aaa.bbb.ccc.testhelper;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
