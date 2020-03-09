@@ -1,10 +1,10 @@
-package com.aaa.bbb.ccc.data.utils;
+package com.aaa.bbb.ccc.utils;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateConverter {
-    private DateConverter() {
+public class DateServices {
+    private DateServices() {
         throw new IllegalStateException("Utility class");
     }
 
@@ -14,5 +14,7 @@ public class DateConverter {
         calendar.setTime(date);
         return calendar;
     }
-
+    public static Integer getCurrentTime(){
+        return (int) (new Date().getTime() / 1000);
+    }
 }
