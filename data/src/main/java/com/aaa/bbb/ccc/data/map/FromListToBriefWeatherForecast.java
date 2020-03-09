@@ -17,8 +17,7 @@ public class FromListToBriefWeatherForecast implements Func1<List, ShortForecast
     public ShortForecast call(List listWeatherItem) {
         ShortForecast shortForecast = new ShortForecast();
         shortForecast.setDate(listWeatherItem.getDt());
-        com.aaa.bbb.ccc.data.model.api.weather.Wind windApiModel = listWeatherItem.getWind();
-        Wind wind = new Wind(windApiModel.getSpeed(), windApiModel.getDeg());
+        Wind wind = new Wind(listWeatherItem.getWind().getSpeed(), listWeatherItem.getWind().getDeg());
         shortForecast.setWind(wind);
 
         if (listWeatherItem.getRain() != null) {
@@ -27,11 +26,7 @@ public class FromListToBriefWeatherForecast implements Func1<List, ShortForecast
         if (listWeatherItem.getSnow() != null) {
             shortForecast.setSnow(listWeatherItem.getSnow().get3h());
         }
-        if (listWeatherItem.getClouds() != null && listWeatherItem.getClouds().getAll() != null) {
-            shortForecast.setClouds(listWeatherItem.getClouds().getAll());
-        }
-
-
+        shortForecast.setClouds(listWeatherItem.getClouds().getAll());
         shortForecast.setHumidity(listWeatherItem.getMain().getHumidity());
         shortForecast.setPressure(listWeatherItem.getMain().getPressure());
         Temperature temperature = new Temperature(listWeatherItem.getMain().getTempMax(), listWeatherItem.getMain().getTempMin());
