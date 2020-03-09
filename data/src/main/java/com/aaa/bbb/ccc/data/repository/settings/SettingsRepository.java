@@ -1,8 +1,8 @@
 package com.aaa.bbb.ccc.data.repository.settings;
 
 import com.aaa.bbb.ccc.model.Location;
+import com.aaa.bbb.ccc.utils.DateServices;
 
-import java.util.Date;
 import java.util.Locale;
 
 import rx.Observable;
@@ -25,6 +25,6 @@ public class SettingsRepository implements ISettingsRepository {
 
     @Override
     public Integer getTime() {
-        return (int) (new Date().getTime() / 1000);
+        return DateServices.getCurrentTime();
     }
 }
