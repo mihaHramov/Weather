@@ -41,8 +41,8 @@ public class RepositoryModule {
 
 
     @Provides
-    ISettingsRepository provideISettingsRepository() {
-        return new SettingsRepository();
+    ISettingsRepository provideISettingsRepository(Context context) {
+        return new SettingsRepository(context);
     }
 
     @Provides
