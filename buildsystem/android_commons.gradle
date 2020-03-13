@@ -22,6 +22,7 @@ android {
     testOptions {
         unitTests {
             all {
+                includeAndroidResources = true
                 testLogging {
                     events 'passed', 'skipped', 'failed'
                 }

@@ -28,7 +28,7 @@ ext {
     //test
     mockito = 'org.mockito:mockito-core:3.2.4'
     junit = 'junit:junit:4.12'
-    robolectic = 'org.robolectric:robolectric:3.6.1'
+    robolectic = 'org.robolectric:robolectric:3.7.1'
 
     mockwebserver = "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
     junitTestImplementation = 'androidx.test.ext:junit:1.1.1'
