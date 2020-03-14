@@ -1,5 +1,8 @@
 package com.aaa.bbb.ccc.data.repository.settings;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+
 import com.aaa.bbb.ccc.data.R;
 
 import org.junit.Assert;
@@ -9,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+
+import java.util.Locale;
 
 import rx.schedulers.Schedulers;
 
@@ -23,7 +28,22 @@ public class SettingsTest {
     }
 
     @Test
-    public void getLanguage() {
+    public void testLang() {
+        String lang = "ru";
+        Locale locale = new Locale(lang, "RU");
+        Locale.setDefault(locale);
+        Resources res = RuntimeEnvironment.application.getResources();
+        Configuration config = res.getConfiguration();
+        config.locale = locale;
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        String result = settingsRepository.getLanguage()
+                .subscribeOn(Schedulers.immediate())
+                .test()
+                .assertCompleted()
+                .assertNoErrors()
+                .getOnNextEvents().get(0);
+        Assert.assertEquals(result,lang);
+
     }
 
     @Test
@@ -35,7 +55,4 @@ public class SettingsTest {
         Assert.assertEquals(metric, result);
     }
 
-    @Test
-    public void getTime() {
-    }
 }
