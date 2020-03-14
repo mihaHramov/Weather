@@ -12,10 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aaa.bbb.ccc.model.ShortForecast;
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
-import com.aaa.bbb.ccc.model.ShortForecast;
-import com.aaa.bbb.ccc.weather.presentation.adapter.ShortForecastAdapter;
+import com.aaa.bbb.ccc.weather.presentation.adapter.ForecastAdapter;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
 
     private OnPlaceLister placeLister;
     @Inject
-    ShortForecastAdapter adapter;
+    ForecastAdapter adapter;
     @Inject
     LinearLayoutManager layoutManager;
     @Inject
@@ -71,7 +71,7 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
                 .inject(this);
         RecyclerView mList = view.findViewById(R.id.listWeather);
         mList.setLayoutManager(layoutManager);
-        adapter.setOnItemClickLister(id -> mWeatherListScreenPresenter.onItemForecastClick(id));
+        adapter.setLister(id -> mWeatherListScreenPresenter.onItemForecastClick(id));
         mList.setAdapter(adapter);
     }
 

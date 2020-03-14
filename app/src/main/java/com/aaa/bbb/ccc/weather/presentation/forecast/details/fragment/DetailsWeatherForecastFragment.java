@@ -8,10 +8,10 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aaa.bbb.ccc.model.DailyForecast;
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
-import com.aaa.bbb.ccc.model.DailyForecast;
-import com.aaa.bbb.ccc.weather.presentation.adapter.DetailForecastAdapter;
+import com.aaa.bbb.ccc.weather.presentation.adapter.ForecastAdapter;
 
 import javax.inject.Inject;
 
@@ -22,7 +22,7 @@ import moxy.presenter.InjectPresenter;
 public class DetailsWeatherForecastFragment extends MvpAppCompatFragment implements DetailsWeatherForecastView {
     private static final String KEY = DetailsWeatherForecastFragment.class.getSimpleName();
     @Inject
-    DetailForecastAdapter mAdapter;
+    ForecastAdapter mAdapter;
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
     @InjectPresenter
@@ -43,11 +43,12 @@ public class DetailsWeatherForecastFragment extends MvpAppCompatFragment impleme
         View view = inflater.inflate(R.layout.details_weather_forecast, container, false);
         initRecyclerView(view);
         DailyForecast dailyForecast = (DailyForecast) getArguments().getSerializable(KEY);
-        mDetailsWeatherForecastPresenter.init(dailyForecast,savedInstanceState);
+        mDetailsWeatherForecastPresenter.init(dailyForecast, savedInstanceState);
         return view;
     }
 
     private void initRecyclerView(View view) {
+        mAdapter.setLayoutId(R.layout.details_weather_forecast_item);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -56,7 +57,7 @@ public class DetailsWeatherForecastFragment extends MvpAppCompatFragment impleme
     @Override
     public void showWeatherForecast(DailyForecast dailyForecast) {
         Toast.makeText(getActivity(), dailyForecast.getPreview().getDate().toString(), Toast.LENGTH_LONG).show();
-        Toast.makeText(getActivity(),dailyForecast.getShortForecasts().size()+"",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), dailyForecast.getShortForecasts().size() + "", Toast.LENGTH_LONG).show();
         mAdapter.setItems(dailyForecast.getShortForecasts());
     }
 }
