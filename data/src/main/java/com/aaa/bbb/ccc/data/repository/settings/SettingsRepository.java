@@ -16,8 +16,8 @@ public class SettingsRepository implements ISettingsRepository {
     private Context context;
 
     public SettingsRepository(Context context) {
-        String KEY = SettingsRepository.class.getName();
-        preferences = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        String key = SettingsRepository.class.getName();
+        preferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         this.context = context;
     }
 
