@@ -1,7 +1,6 @@
 package com.aaa.bbb.ccc.utils;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class DateServices {
     private DateServices() {
@@ -9,12 +8,12 @@ public class DateServices {
     }
 
     public static Calendar getDateByInteger(Integer integer) {
-        Date date = new Date((long) integer * 1000);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        calendar.setTimeInMillis(integer);
         return calendar;
     }
-    public static Integer getCurrentTime(){
-        return (int) (new Date().getTime() / 1000);
+
+    public static Integer getCurrentTime() {
+        return (int) System.currentTimeMillis() / 1000;
     }
 }
