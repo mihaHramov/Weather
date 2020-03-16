@@ -9,6 +9,8 @@ import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.cash.CashRepository;
 import com.aaa.bbb.ccc.data.repository.city.CityRepository;
+import com.aaa.bbb.ccc.data.repository.date.DateRepository;
+import com.aaa.bbb.ccc.data.repository.date.IDateRepository;
 import com.aaa.bbb.ccc.data.repository.location.LocationRepository;
 import com.aaa.bbb.ccc.data.repository.permissions.PermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.settings.SettingsRepository;
@@ -162,5 +164,9 @@ public class RepositoryModule {
     @Provides
     WeatherDatabase provideWeatherDatabase(Context context) {
         return Room.databaseBuilder(context, WeatherDatabase.class, WeatherDatabase.NAME).build();
+    }
+    @Provides
+    IDateRepository provideDateRepository(){
+        return new DateRepository();
     }
 }
