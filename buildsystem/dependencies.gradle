@@ -26,7 +26,12 @@ ext {
     daggerAnnotationProcessor = "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     //test
-    mockito = 'org.mockito:mockito-core:3.2.4'
+    mockito = 'org.mockito:mockito-core:2.4.0'
+    powermock_core =  'org.powermock:powermock-core:1.7.0RC2'
+    powermock_classloading = "org.powermock:powermock-classloading-xstream:1.7.0RC2"
+    powermock_module = 'org.powermock:powermock-module-junit4:1.7.0RC2'
+    powermock_module_rule = 'org.powermock:powermock-module-junit4-rule:1.7.0RC2'
+    powermock_api = 'org.powermock:powermock-api-mockito2:1.7.0RC2'
     junit = 'junit:junit:4.12'
     robolectic = 'org.robolectric:robolectric:3.7.1'
 
@@ -95,7 +100,12 @@ ext {
     unitTestsDependencies = [
             [configuration: "testImplementation", dependency: robolectic],
             [configuration: "testImplementation", dependency: junit],
-            [configuration: "testImplementation", dependency: mockito]
+            [configuration: "testImplementation", dependency: mockito],
+            [configuration: "testImplementation", dependency: powermock_api],
+            [configuration: "testImplementation", dependency: powermock_core],
+            [configuration: "testImplementation", dependency: powermock_module],
+            [configuration: "testImplementation", dependency: powermock_module_rule],
+            [configuration: "testImplementation", dependency: powermock_classloading],
     ]
     //Importend in app module only
     instrumentationTestsDependencies = [
