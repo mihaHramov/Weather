@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.aaa.bbb.ccc.data.R;
 import com.aaa.bbb.ccc.model.Location;
-import com.aaa.bbb.ccc.utils.DateServices;
 
 import java.util.Locale;
 
@@ -36,8 +35,4 @@ public class SettingsRepository implements ISettingsRepository {
         return Observable.just(new Location("48.05", "37.93"));
     }
 
-    @Override
-    public Integer getTime() {
-        return DateServices.getCurrentTime();
-    }
 }
