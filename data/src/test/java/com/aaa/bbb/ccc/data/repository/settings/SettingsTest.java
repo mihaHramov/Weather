@@ -1,5 +1,6 @@
 package com.aaa.bbb.ccc.data.repository.settings;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
@@ -18,7 +19,7 @@ import java.util.Locale;
 import rx.schedulers.Schedulers;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = android.app.Application.class, manifest = "src/main/AndroidManifest.xml", sdk = 23)
+@Config(application = android.app.Application.class, manifest = "src/main/AndroidManifest.xml", sdk = 25)
 public class SettingsTest {
     private ISettingsRepository settingsRepository;
 
@@ -30,19 +31,20 @@ public class SettingsTest {
     @Test
     public void testLang() {
         String lang = "ru";
-        Locale locale = new Locale(lang, "RU");
+        Context context = RuntimeEnvironment.application;
+        Locale locale = new Locale(lang);
         Locale.setDefault(locale);
-        Resources res = RuntimeEnvironment.application.getResources();
-        Configuration config = res.getConfiguration();
-        config.locale = locale;
-        res.updateConfiguration(config, res.getDisplayMetrics());
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.setLocale(locale);
+        context.createConfigurationContext(config);
         String result = settingsRepository.getLanguage()
                 .subscribeOn(Schedulers.immediate())
                 .test()
                 .assertCompleted()
                 .assertNoErrors()
                 .getOnNextEvents().get(0);
-        Assert.assertEquals(result,lang);
+        Assert.assertEquals(result, lang);
 
     }
 
