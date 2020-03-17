@@ -1,15 +1,7 @@
 apply plugin: 'com.android.library'
-
+apply from: '../buildsystem/android_commons.gradle'
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -25,9 +17,19 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    rootProject.unitTestsDependencies.each { item ->
+        add(item.configuration, item.dependency, item.options)
+    }
+    rootProject.app.each { item ->
+        add(item.configuration, item.dependency, item.options)
+    }
+    rootProject.annotationProcessorsDependencies.each { item ->
+        add(item.configuration, item.dependency, item.options)
+    }
+    rootProject.unitTestsDependencies.each { item ->
+        add(item.configuration, item.dependency, item.options)
+    }
+    rootProject.instrumentationTestsDependencies.each { item ->
+        add(item.configuration, item.dependency, item.options)
+    }
 }
