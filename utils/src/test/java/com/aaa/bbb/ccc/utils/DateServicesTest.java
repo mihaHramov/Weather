@@ -2,22 +2,24 @@ package com.aaa.bbb.ccc.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Calendar;
 
+import mockit.Mock;
+import mockit.MockUp;
 
-@RunWith(PowerMockRunner.class)
-@Config(application = android.app.Application.class, manifest = "src/main/AndroidManifest.xml", sdk = 23)
-@PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*"})
-@PrepareForTest({DateServices.class})
+
+
 public class DateServicesTest {
-    private Integer fakeCurrentDateInMillis = 1599609600;//2020.09.09
+    private static Integer fakeCurrentDateInMillis = 1599609600;//2020.09.09
+
+    private static class SystemMock extends MockUp<System> {
+
+        @Mock
+        public static long currentTimeMillis() {
+            return fakeCurrentDateInMillis;
+        }
+    }
 
     @Test
     public void getDateByInteger() {
@@ -32,8 +34,7 @@ public class DateServicesTest {
 
     @Test
     public void getCurrentTime() {
-        PowerMockito.mockStatic(System.class);
-        PowerMockito.when(System.currentTimeMillis()).thenReturn(fakeCurrentDateInMillis.longValue());
+        new SystemMock();
         Integer expected = fakeCurrentDateInMillis / 1000;
         Assert.assertEquals(expected, DateServices.getCurrentTime());
     }

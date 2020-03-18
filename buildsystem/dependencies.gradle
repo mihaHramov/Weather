@@ -27,13 +27,6 @@ ext {
 
     //test
     mockito = 'org.mockito:mockito-core:2.8.9'
-    powerMockVersion = "1.7.3"
-    powermock_core =  "org.powermock:powermock-core:${powerMockVersion}"
-    powermock_classloading = "org.powermock:powermock-classloading-xstream:${powerMockVersion}"
-    powermock_module = "org.powermock:powermock-module-junit4:${powerMockVersion}"
-    powermock_module_rule = "org.powermock:powermock-module-junit4-rule:${powerMockVersion}"
-    powermock_api = "org.powermock:powermock-api-mockito2:${powerMockVersion}"
-
     junit = 'junit:junit:4.12'
     robolectic = 'org.robolectric:robolectric:3.7.1'
 
@@ -100,14 +93,10 @@ ext {
     ]
 
     unitTestsDependencies = [
+            [configuration: "testImplementation", dependency: "org.jmockit:jmockit:1.25"],
             [configuration: "testImplementation", dependency: robolectic],
             [configuration: "testImplementation", dependency: junit],
-            [configuration: "testImplementation", dependency: mockito],
-            [configuration: "testImplementation", dependency: powermock_api],
-            [configuration: "testImplementation", dependency: powermock_core],
-            [configuration: "testImplementation", dependency: powermock_module],
-            [configuration: "testImplementation", dependency: powermock_module_rule],
-            [configuration: "testImplementation", dependency: powermock_classloading],
+            [configuration: "testImplementation", dependency: mockito]
     ]
     //Importend in app module only
     instrumentationTestsDependencies = [
