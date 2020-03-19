@@ -6,7 +6,6 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 
 import com.aaa.bbb.ccc.data.R;
-import com.aaa.bbb.ccc.model.Location;
 
 import java.util.Locale;
 
@@ -32,10 +31,6 @@ public class SettingsRepository implements ISettingsRepository {
         return Observable.fromCallable(() -> preferences.getString("unit", context.getString(R.string.default_unit)));
     }
 
-    @Override
-    public Observable<Location> getDefaultLocation() {
-        return Observable.just(new Location("48.05", "37.93"));
-    }
 
     @Override
     public Observable<String> getCountry() {
