@@ -8,4 +8,5 @@ public interface ISettingsRepository {
     Observable<String> getLanguage();
     Observable<String> getUnits();
     Observable<Location> getDefaultLocation();
+    Observable<String> getCountry();
 }
