@@ -3,6 +3,7 @@ package com.aaa.bbb.ccc.domain.interactor;
 import android.Manifest;
 
 import com.aaa.bbb.ccc.data.repository.city.ICityRepository;
+import com.aaa.bbb.ccc.data.repository.country.ICountryRepository;
 import com.aaa.bbb.ccc.data.repository.date.IDateRepository;
 import com.aaa.bbb.ccc.data.repository.forecast.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.data.repository.location.ILocationRepository;
@@ -21,6 +22,7 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
     private ISettingsRepository mSettingsRepository;
     private ICityRepository mCityRepository;
     private IDateRepository mDateRepository;
+    private ICountryRepository mCountryRepository;
 
     public CurrentWeatherForecastInteractor(
             IPermissionsRepository mPermissionsRepository,
@@ -28,13 +30,15 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
             ILocationRepository mLocationRepository,
             ISettingsRepository settingsRepository,
             ICityRepository cityRepository,
-            IDateRepository dateRepository) {
+            IDateRepository dateRepository,
+            ICountryRepository countryRepository) {
         this.mPermissionsRepository = mPermissionsRepository;
         this.mRepositoryOfWeather = mRepositoryOfWeather;
         this.mLocationRepository = mLocationRepository;
         this.mSettingsRepository = settingsRepository;
         this.mCityRepository = cityRepository;
         this.mDateRepository = dateRepository;
+        this.mCountryRepository = countryRepository;
     }
 
 
@@ -42,9 +46,7 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
     public Observable<SynopticForecast> getCurrentWeather() {
         Observable<Location> locationObservable = mPermissionsRepository
                 .getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                .flatMap(isGranted -> Boolean.TRUE.equals(isGranted)
-                        ? mLocationRepository.getCurrentLocation()
-                        : mSettingsRepository.getDefaultLocation());
+                .flatMap(this::getLocation);
 
         Observable<String> languageObservable = mSettingsRepository.getLanguage();
         Observable<String> unitsObservable = mSettingsRepository.getUnits();
@@ -53,5 +55,11 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
                 .flatMap(weatherForecastObservable -> weatherForecastObservable)
                 .flatMap(weatherForecast -> mCityRepository.getCityTranslate(weatherForecast.getPlace()), SynopticForecast::setPlace)
                 .subscribeOn(Schedulers.io());
+    }
+
+    private Observable<Location> getLocation(Boolean isGranted) {
+        return isGranted ? mLocationRepository.getCurrentLocation() : mSettingsRepository.getCountry()
+                .flatMap(country -> mCountryRepository.getCountryByCode(country))
+                .map(country -> new Location(country.getLat(), country.getLon()));
     }
 }
