@@ -58,7 +58,8 @@ public class CurrentWeatherForecastInteractor implements ICurrentWeatherForecast
     }
 
     private Observable<Location> getLocation(Boolean isGranted) {
-        return isGranted ? mLocationRepository.getCurrentLocation() : mSettingsRepository.getCountry()
+        return Boolean.TRUE.equals(isGranted)
+                ? mLocationRepository.getCurrentLocation() : mSettingsRepository.getCountry()
                 .flatMap(country -> mCountryRepository.getCountryByCode(country))
                 .map(country -> new Location(country.getLat(), country.getLon()));
     }
