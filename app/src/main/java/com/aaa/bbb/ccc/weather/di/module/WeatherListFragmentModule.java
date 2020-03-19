@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.aaa.bbb.ccc.data.repository.city.ICityRepository;
+import com.aaa.bbb.ccc.data.repository.country.ICountryRepository;
 import com.aaa.bbb.ccc.data.repository.date.IDateRepository;
 import com.aaa.bbb.ccc.data.repository.forecast.IWeatherForecastRepository;
 import com.aaa.bbb.ccc.data.repository.location.ILocationRepository;
@@ -36,7 +37,8 @@ public class WeatherListFragmentModule {
                                                  ILocationRepository locationRepository,
                                                  ISettingsRepository settingsRepository,
                                                  ICityRepository cityRepository,
-                                                 IDateRepository dateRepository) {
-        return new CurrentWeatherForecastInteractor(permissionsRepository, weatherForecastRepository, locationRepository, settingsRepository, cityRepository,dateRepository);
+                                                 IDateRepository dateRepository,
+                                                 ICountryRepository countryRepository) {
+        return new CurrentWeatherForecastInteractor(permissionsRepository, weatherForecastRepository, locationRepository, settingsRepository, cityRepository,dateRepository,countryRepository);
     }
 }

@@ -9,6 +9,8 @@ import com.aaa.bbb.ccc.data.network.OpenWeatherMapApi;
 import com.aaa.bbb.ccc.data.network.TranslateApi;
 import com.aaa.bbb.ccc.data.repository.cash.CashRepository;
 import com.aaa.bbb.ccc.data.repository.city.CityRepository;
+import com.aaa.bbb.ccc.data.repository.country.CountryRepository;
+import com.aaa.bbb.ccc.data.repository.country.ICountryRepository;
 import com.aaa.bbb.ccc.data.repository.date.DateRepository;
 import com.aaa.bbb.ccc.data.repository.date.IDateRepository;
 import com.aaa.bbb.ccc.data.repository.location.LocationRepository;
@@ -41,7 +43,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RepositoryModule {
 
-
+    @Provides
+    ICountryRepository provideCountryRepository(Context context){
+        return new CountryRepository(context);
+    }
     @Provides
     ISettingsRepository provideISettingsRepository(Context context) {
         return new SettingsRepository(context);
