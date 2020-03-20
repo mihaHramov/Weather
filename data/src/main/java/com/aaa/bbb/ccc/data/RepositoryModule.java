@@ -23,7 +23,6 @@ import com.aaa.bbb.ccc.data.repository.location.ILocationRepository;
 import com.aaa.bbb.ccc.data.repository.permissions.IPermissionsRepository;
 import com.aaa.bbb.ccc.data.repository.settings.ISettingsRepository;
 import com.aaa.bbb.ccc.data.repository.forecast.IWeatherForecastRepository;
-import com.aaa.bbb.ccc.utils.Const;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -100,8 +99,8 @@ public class RepositoryModule {
 
     @Provides
     @Named("OPEN_WEATHER_MAP_API_BASE_URL")
-    String getOpenWeatherMapApiBaseUrl() {
-        return Const.OPEN_WEATHER_MAP_API_BASE_URL;
+    String getOpenWeatherMapApiBaseUrl(Context context) {
+        return context.getString(R.string.base_weather_api_url);
     }
 
     @Provides
@@ -132,8 +131,8 @@ public class RepositoryModule {
 
     @Provides
     @Named("TRANSLATE_API_BASE_URL")
-    String getTranslateApiBaseUrl() {
-        return Const.TRANSLATE_API_BASE_URL;
+    String getTranslateApiBaseUrl(Context context) {
+        return context.getString(R.string.base_translate_url);
     }
 
     @Provides
