@@ -5,6 +5,7 @@ import android.app.Application;
 import com.aaa.bbb.ccc.weather.di.component.AppComponent;
 import com.aaa.bbb.ccc.weather.di.component.DaggerAppComponent;
 import com.aaa.bbb.ccc.weather.di.component.DetailsWeatherForecastFragmentComponent;
+import com.aaa.bbb.ccc.weather.di.component.WeatherListActivityComponent;
 import com.aaa.bbb.ccc.weather.di.component.WeatherListFragmentComponent;
 import com.aaa.bbb.ccc.weather.di.module.AppModule;
 import com.crashlytics.android.Crashlytics;
@@ -48,5 +49,9 @@ public class WeatherApp extends Application {
 
     private static void setInstance(WeatherApp app){
         instance = app;
+    }
+
+    public WeatherListActivityComponent getWeatherListActivityComponent() {
+        return component.getWeatherListActivityComponent();
     }
 }

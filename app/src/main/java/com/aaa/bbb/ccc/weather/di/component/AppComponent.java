@@ -13,4 +13,5 @@ import dagger.Component;
 public interface AppComponent {
     WeatherListFragmentComponent getWeatherListFragmentComponent();
     DetailsWeatherForecastFragmentComponent getDetailsWeatherForecastFragmentComponent();
+    WeatherListActivityComponent getWeatherListActivityComponent();
 }
