@@ -16,4 +16,6 @@ public interface WeatherListScreenView extends MvpView {
     void showWeather(List<ShortForecast> dailyForecast);
 
     void showError(String message);
+
+    void showWeatherForecastForToday(ShortForecast forecast);
 }

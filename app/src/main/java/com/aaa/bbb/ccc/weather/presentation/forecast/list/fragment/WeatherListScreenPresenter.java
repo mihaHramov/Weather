@@ -2,6 +2,7 @@ package com.aaa.bbb.ccc.weather.presentation.forecast.list.fragment;
 
 import com.aaa.bbb.ccc.domain.interactor.ICurrentWeatherForecastInteractor;
 import com.aaa.bbb.ccc.model.DailyForecast;
+import com.aaa.bbb.ccc.model.ShortForecast;
 import com.aaa.bbb.ccc.model.SynopticForecast;
 import com.aaa.bbb.ccc.weather.navigation.Screens;
 
@@ -10,7 +11,6 @@ import moxy.MvpPresenter;
 import ru.terrakok.cicerone.Router;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 
 
 @InjectViewState
@@ -34,7 +34,11 @@ public class WeatherListScreenPresenter extends MvpPresenter<WeatherListScreenVi
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(synopticForecast -> mSynopticForecast = synopticForecast)
                 .doOnNext(synopticForecast -> getViewState().showPlace(synopticForecast.getPlace().getName()))
-                .flatMap((Func1<SynopticForecast, Observable<DailyForecast>>) synopticForecast -> Observable.from(synopticForecast.getDailyForecast()))
+                .doOnNext(synopticForecast -> {
+                    ShortForecast forecast  = synopticForecast.getDailyForecast().get(0).getPreview();
+                    getViewState().showWeatherForecastForToday(forecast);
+                })
+                .flatMap(synopticForecast -> Observable.from(synopticForecast.getDailyForecast()))
                 .map(DailyForecast::getPreview)
                 .toList()
                 .subscribe(shortForecasts -> getViewState().showWeather(shortForecasts),

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import com.aaa.bbb.ccc.model.ShortForecast;
 import com.aaa.bbb.ccc.weather.R;
 import com.aaa.bbb.ccc.weather.WeatherApp;
 import com.aaa.bbb.ccc.weather.presentation.adapter.ForecastAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,6 +38,9 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     }
 
     private OnPlaceLister placeLister;
+    private ImageView mIcon;
+    private TextView mTemperature;
+    private TextView mWeatherType;
     @Inject
     ForecastAdapter adapter;
     @Inject
@@ -69,6 +75,9 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
                 .getWeatherListFragmentModule()
                 .inject(this);
         RecyclerView mList = view.findViewById(R.id.listWeather);
+        mIcon = view.findViewById(R.id.icon);
+        mTemperature = view.findViewById(R.id.temperature);
+        mWeatherType = view.findViewById(R.id.weather_type);
         mList.setLayoutManager(layoutManager);
         adapter.setLister(id -> mWeatherListScreenPresenter.onItemForecastClick(id));
         mList.setAdapter(adapter);
@@ -84,6 +93,14 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     @Override
     public void showWeather(List<ShortForecast> dailyForecast) {
         adapter.setItems(dailyForecast);
+    }
+
+    @Override
+    public void showWeatherForecastForToday(ShortForecast forecast) {
+        mWeatherType.setText(forecast.getWeatherType().getDescription());
+        Picasso.get().load(forecast.getWeatherType().getIcon()).into(mIcon);
+        String temperature = forecast.getTemperature().getMax().toString();
+        mTemperature.setText(temperature);
     }
 
     @Override
