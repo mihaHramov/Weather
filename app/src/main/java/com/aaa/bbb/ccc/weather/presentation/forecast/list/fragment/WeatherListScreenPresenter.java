@@ -27,17 +27,18 @@ public class WeatherListScreenPresenter extends MvpPresenter<WeatherListScreenVi
         this.mRouter = mRouter;
     }
 
-
-    void onCreate() {
-            mInteractor.getCurrentWeather()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext(synopticForecast -> mSynopticForecast = synopticForecast)
-                    .doOnNext(synopticForecast -> getViewState().showPlace(synopticForecast.getPlace().getName()))
-                    .flatMap((Func1<SynopticForecast, Observable<DailyForecast>>) synopticForecast -> Observable.from(synopticForecast.getDailyForecast()))
-                    .map(DailyForecast::getPreview)
-                    .toList()
-                    .subscribe(shortForecasts -> getViewState().showWeather(shortForecasts),
-                            throwable -> getViewState().showError(throwable.getMessage()));
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
+        mInteractor.getCurrentWeather()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(synopticForecast -> mSynopticForecast = synopticForecast)
+                .doOnNext(synopticForecast -> getViewState().showPlace(synopticForecast.getPlace().getName()))
+                .flatMap((Func1<SynopticForecast, Observable<DailyForecast>>) synopticForecast -> Observable.from(synopticForecast.getDailyForecast()))
+                .map(DailyForecast::getPreview)
+                .toList()
+                .subscribe(shortForecasts -> getViewState().showWeather(shortForecasts),
+                        throwable -> getViewState().showError(throwable.getMessage()));
     }
 
 

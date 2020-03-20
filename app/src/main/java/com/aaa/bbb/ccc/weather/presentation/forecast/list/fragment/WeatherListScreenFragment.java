@@ -53,7 +53,6 @@ public class WeatherListScreenFragment extends MvpAppCompatFragment implements W
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        mWeatherListScreenPresenter.onCreate();
         return inflater.inflate(R.layout.fragment_weather_list_scrin, container, false);
     }
 

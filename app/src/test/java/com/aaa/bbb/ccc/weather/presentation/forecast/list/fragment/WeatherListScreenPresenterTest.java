@@ -47,13 +47,12 @@ public class WeatherListScreenPresenterTest {
         SynopticForecast synopticForecast = new SynopticForecast(place, dailyForecasts);
         when(interactor.getCurrentWeather()).thenReturn(Observable.just(synopticForecast));
         presenter = new WeatherListScreenPresenter(interactor, router);
-        presenter.attachView(view);
     }
 
 
     @Test
     public void onCreate() {
-        presenter.onCreate();
+        presenter.attachView(view);
         verify(view).showPlace(place.getName());
         List<ShortForecast> shortForecasts = new ArrayList<>();
         dailyForecasts.forEach(dailyForecast -> shortForecasts.add(dailyForecast.getPreview()));
@@ -64,14 +63,14 @@ public class WeatherListScreenPresenterTest {
     public void onCreateWhenInteractorReturnError() {
         final String MOCK_ERROR = "mock error";
         when(interactor.getCurrentWeather()).thenReturn(Observable.error(new Throwable(MOCK_ERROR)));
-        presenter.onCreate();
+        presenter.attachView(view);
         verify(view).showError(MOCK_ERROR);
     }
 
     @Test
     public void onItemForecastClick() {
+        presenter.attachView(view);
         Integer itemId = 0;
-        presenter.onCreate();
         presenter.onItemForecastClick(itemId);
         verify(router).navigateTo(any(Screens.DetailsWeatherScreen.class));
     }
