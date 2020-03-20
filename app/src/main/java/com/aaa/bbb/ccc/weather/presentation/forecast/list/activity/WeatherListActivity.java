@@ -12,15 +12,18 @@ import moxy.presenter.InjectPresenter;
 public class WeatherListActivity extends MvpAppCompatActivity implements WeatherListView {
     @InjectPresenter
     WeatherListPresenter mWeatherListPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_list);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, new WeatherListScreenFragment())
-                    .commit();
-        }
+    }
+
+    @Override
+    public void showWeatherForecast() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new WeatherListScreenFragment())
+                .commit();
     }
 }

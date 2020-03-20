@@ -6,6 +6,9 @@ import moxy.MvpPresenter;
 
 @InjectViewState
 class WeatherListPresenter extends MvpPresenter<WeatherListView> {
-
-
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
+        getViewState().showWeatherForecast();
+    }
 }
