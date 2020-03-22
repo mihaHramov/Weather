@@ -29,7 +29,7 @@ public class WeatherApp extends Application {
         return instance;
     }
 
-    public WeatherListFragmentComponent getWeatherListFragmentModule() {
+    public WeatherListFragmentComponent getWeatherListFragmentComponent() {
         return component.getWeatherListFragmentComponent();
     }
 

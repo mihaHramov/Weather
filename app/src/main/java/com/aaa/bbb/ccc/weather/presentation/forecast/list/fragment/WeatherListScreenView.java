@@ -11,11 +11,5 @@ import moxy.viewstate.strategy.StateStrategyType;
 
 @StateStrategyType(AddToEndStrategy.class)
 public interface WeatherListScreenView extends MvpView {
-    void showPlace(String place);
-
     void showWeather(List<ShortForecast> dailyForecast);
-
-    void showError(String message);
-
-    void showWeatherForecastForToday(ShortForecast forecast);
 }

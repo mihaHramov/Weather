@@ -27,18 +27,7 @@ public class WeatherListFragmentModule {
     }
 
     @Provides
-    WeatherListScreenPresenter presenter(ICurrentWeatherForecastInteractor interactor, Router router) {
-        return new WeatherListScreenPresenter(interactor, router);
-    }
-
-    @Provides
-    ICurrentWeatherForecastInteractor interactor(IPermissionsRepository permissionsRepository,
-                                                 IWeatherForecastRepository weatherForecastRepository,
-                                                 ILocationRepository locationRepository,
-                                                 ISettingsRepository settingsRepository,
-                                                 ICityRepository cityRepository,
-                                                 IDateRepository dateRepository,
-                                                 ICountryRepository countryRepository) {
-        return new CurrentWeatherForecastInteractor(permissionsRepository, weatherForecastRepository, locationRepository, settingsRepository, cityRepository,dateRepository,countryRepository);
+    WeatherListScreenPresenter presenter(Router router) {
+        return new WeatherListScreenPresenter(router);
     }
 }
